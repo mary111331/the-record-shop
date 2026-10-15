@@ -110,7 +110,7 @@ ul.ctl{padding-left:18px;margin:10px 0;color:#ddd5ca;font-size:14px}ul.ctl li{ma
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <script>
-(function(){var PAGE_V='3.4';window.SHOP_VERSION=PAGE_V;
+(function(){var PAGE_V='3.5';window.SHOP_VERSION=PAGE_V;
 try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
  if(j&&j.v&&j.v!==PAGE_V){var u=location.pathname+'?v='+encodeURIComponent(j.v);if(location.search.indexOf('v='+j.v)<0){location.replace(u);}}
 }).catch(function(){});}catch(e){}
@@ -119,7 +119,7 @@ try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){retu
 <style>#verBadge{position:fixed;right:8px;bottom:6px;z-index:99999;font:11px/1.2 monospace;color:rgba(255,190,220,.75);background:rgba(0,0,0,.35);padding:2px 6px;border-radius:6px;pointer-events:none}</style>
 </head>
 <body>
-<div id="verBadge">Version 3.4 · ohne Musik</div>
+<div id="verBadge">Version 3.5 · ohne Musik</div>
 <canvas id="c" tabindex="0"></canvas>
 <div id="hud" class="hide">
   <div id="where"></div>
@@ -190,7 +190,7 @@ var CRATES={
  rap:{n:'Rap & breaks',b:'At the end of the counter, on a stack of milk crates. US classics and Hamburg rap from a few streets away.',w:'the milk crates at the end of the counter'},
  unk:{n:'Unbekannt',b:'A shoebox on the coffee table by the sofa. No divider, just UNBEKANNT in pencil on the lid. Old, obscure, mostly forgotten.',w:'the shoebox by the sofa'},
  r:{n:'The R crate',b:'Back wall, under the single bulb. A divider card with a big R in marker. Rarities, he says, if he says anything.',w:'under the bulb at the back'},
- ns:{n:'New School',b:'Front wall, under the little window, next to the fridge. A brand-new shelf with a NEW SCHOOL card. Two records so far, and room for more.',w:'the new shelf under the window'}
+ ns:{n:'New School',b:'Front wall, under the little window, next to the fridge. A brand-new shelf with a NEW SCHOOL card. Three records so far, and room for more.',w:'the new shelf under the window'}
 };
 // ids checked with YouTube's oEmbed on Oct 15, 2026; the first id that plays wins
 var RECS=[
@@ -310,7 +310,8 @@ var RECS=[
  {"id": "wangdang", "cr": "blues", "f": "45", "t": "Wang Dang Doodle", "a": "Koko Taylor", "m": "Checker, 1966", "p": 12, "cond": "Chicago blues, all-night party. Label worn white by the needle.", "c": "#e0cfa8", "l": "#2a4a8a", "ids": ["1qXp3nlcWoU", "X4xum7FVPh8", "qyUHkY0K8HE"]},
  {"id": "matumbi", "cr": "unk", "f": "45", "t": "Point of View (Squeeze a Little Lovin')", "a": "Matumbi", "m": "EMI, 1979", "p": 14, "cond": "London lovers rock, Dennis Bovell on the desk. Found at the bottom of the shoebox.", "c": "#d8c49a", "l": "#2a6a3a", "ids": ["V4M2FRvRvFg", "VgJn7HeADHQ", "GK-QITkprJI"]},
  {"id": "losecontrol", "cr": "ns", "f": "LP", "t": "Lose Control", "a": "Teddy Swims", "m": "Warner Records, 2023", "p": 22, "cond": "Brand new, the shrink wrap only just off. The first record on the New School shelf.", "c": "#1c2636", "ink": "#f0d6a8", "st": 0, "ids": ["FkOpwodhROI", "mOAy_vCa33E", "9gWIIIr2Asw", "GZ3zL7kT6_c"]},
- {"id": "shallow", "cr": "ns", "f": "LP", "t": "Shallow", "a": "Lady Gaga & Bradley Cooper", "m": "Interscope, 2018 · from A Star Is Born", "p": 24, "cond": "Brand new, leaning right next to Lose Control on the New School shelf.", "c": "#2b1420", "ink": "#f3c9a0", "st": 0, "ids": ["BpIf43m2ZQI", "bo_efYhYU2A", "JPJjwHAIny4"]}
+ {"id": "shallow", "cr": "ns", "f": "LP", "t": "Shallow", "a": "Lady Gaga & Bradley Cooper", "m": "Interscope, 2018 · from A Star Is Born", "p": 24, "cond": "Brand new, leaning right next to Lose Control on the New School shelf.", "c": "#2b1420", "ink": "#f3c9a0", "st": 0, "ids": ["BpIf43m2ZQI", "bo_efYhYU2A", "JPJjwHAIny4"]},
+ {"id": "ichkenne", "cr": "ns", "f": "LP", "t": "Ich kenne nichts (das so schön ist wie du)", "a": "Xavier Naidoo feat. RZA", "m": "Naidoo Records, 2003", "p": 18, "cond": "Mannheim soul with RZA from the Wu-Tang Clan on it. Leaning on the left of Lose Control on the New School shelf.", "c": "#16222c", "ink": "#ead7ae", "st": 0, "ids": ["RPN88D_HjMU", "CRlZNJTzIv4", "xfFTLwC9ekM", "C5hdjny3ask"]}
 ];
 var BYID={};RECS.forEach(function(r){BYID[r.id]=r;});
 function store(k,d){try{return JSON.parse(localStorage.getItem(k))||d;}catch(e){return d;}}
@@ -646,6 +647,8 @@ slabs.instanceMatrix.needsUpdate=true;if(slabs.instanceColor)slabs.instanceColor
   var back=box(.31,.31,.006,MAT.dark,nsx,F+1.17,-5.175);back.rotation.set(.12,Math.PI,0);}
  var sh=null;for(var j=0;j<RECS.length;j++){if(RECS[j].id==='shallow')sh=RECS[j];}
  if(sh){var st2=new THREE.CanvasTexture(sleeve(sh).canvas);var rec2=new THREE.Mesh(new THREE.PlaneGeometry(.31,.31),M({map:st2}));rec2.position.set(nsx+.22,F+1.17,-5.163);rec2.rotation.set(.12,Math.PI,0);scene.add(rec2);}
+ var ik=null;for(var q=0;q<RECS.length;q++){if(RECS[q].id==='ichkenne')ik=RECS[q];}
+ if(ik){var st3=new THREE.CanvasTexture(sleeve(ik).canvas);var rec3=new THREE.Mesh(new THREE.PlaneGeometry(.31,.31),M({map:st3}));rec3.position.set(nsx-.22,F+1.17,-5.163);rec3.rotation.set(.12,Math.PI,0);scene.add(rec3);}
  var card=new THREE.Mesh(new THREE.PlaneGeometry(.62,.2),new THREE.MeshLambertMaterial({map:tex(320,104,function(g,W,H){g.fillStyle='#f1ece0';g.fillRect(0,0,W,H);g.strokeStyle='rgba(60,40,20,.35)';g.lineWidth=3;g.strokeRect(4,4,W-8,H-8);g.fillStyle='#1a1008';g.textAlign='center';g.textBaseline='middle';fit(g,'NEW SCHOOL',W-30,58,'700','"Marker Felt","Comic Sans MS",cursive');g.fillText('NEW SCHOOL',W/2,H/2+3);g.fillStyle='#e0408a';g.fillRect(40,H-16,W-80,4);})}));
  card.position.set(nsx,F+1.8,-5.12);card.rotation.y=Math.PI;scene.add(card);
 })();
