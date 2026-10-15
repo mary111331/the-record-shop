@@ -915,7 +915,7 @@ $('bWalk').onclick=function(){started=true;$('start').classList.add('hide');$('h
  unlock();setSound(true);setTimeout(function(){caption('The Reeperbahn at night. Neon on wet cobbles. Behind you, between two doorways, a narrow stairwell goes down. No sign.',7000);},400);};
 
 // ---------- loop ----------
-var clock=new THREE.Clock(),t0=0,lastSpot=null,enteredShop=false,lastZone='';
+var clock=new THREE.Clock(),t0=0,lastSpot=null,enteredShop=false,lastZone='';var catGlance=0;
 function frame(){requestAnimationFrame(frame);var dt=Math.min(clock.getDelta(),.05);t0+=dt;
  if(started&&!cardOpen&&!crateOpen&&$('player').classList.contains('hide')){
   var f=0,s=0;if(keys.w||keys.arrowup)f+=1;if(keys.s||keys.arrowdown)f-=1;if(keys.a||keys.arrowleft)s-=1;if(keys.d||keys.arrowright)s+=1;f-=joyV.y;s+=joyV.x;
@@ -958,10 +958,11 @@ function frame(){requestAnimationFrame(frame);var dt=Math.min(clock.getDelta(),.
   gStreet.gain.value=shop?0:(inWell()?Math.max(.08,(P.z+5)/3.5*.4):(P.z<4.5?.4:.55));
   gHouse.gain.value=(shop&&!NOW)?.06:0;
   if(shop&&!houseOn&&!NOW)house(true);}
+ if(catGlance>0){catGlance-=dt;if(!tLook&&!drag){var ga=Math.atan2(-(cat.position.x-P.x),-(cat.position.z-P.z))*.6,gd=ga-P.yaw;while(gd>Math.PI)gd-=2*Math.PI;while(gd<-Math.PI)gd+=2*Math.PI;P.yaw+=gd*Math.min(1,dt*3.5);}}
  // prompts & zone
  if(started){var n=nearest(),pr=$('prompt');if(n&&!cardOpen&&!crateOpen){pr.innerHTML=(coarse?'':'<kbd>E</kbd>');pr.appendChild(document.createTextNode(n.label));pr.classList.remove('hide');}else pr.classList.add('hide');
   var z=where();if(z!==lastZone){$('where').textContent=z;lastZone=z;}
-  if(inShop()&&!enteredShop){enteredShop=true;caption('Two disco balls turning over the bottom step, throwing light all over the walls. Records everywhere: on shelves, in crates, in towers on the floor. It\u2019s quiet down here, just a faint crackle in the air. Right in front of you, on the tallest stack under a bare bulb, a fat ginger cat is asleep like she owns the place.',9000);}
+  if(inShop()&&!enteredShop){enteredShop=true;catGlance=1.6;caption('Two disco balls turning over the bottom step, throwing light all over the walls. Records everywhere: on shelves, in crates, in towers on the floor. It\u2019s quiet down here, just a faint crackle in the air. Right in front of you, on the tallest stack under a bare bulb, a fat ginger cat is asleep like she owns the place.',9000);}
   if(!doorOpen&&P.z<2.2&&P.z>-1.3&&lastSpot!=='door'){lastSpot='door';caption('A side alley. At the end, a pink VINYL sign blinks over a plain door, a lamp next to it half dead. Just a buzzer that looks like it gave up years ago.',6500);}
   if(inWell()&&lastSpot!=='well'&&P.z<-2.5){lastSpot='well';caption('Steps going down. Light dots swimming over the walls below.',3500);}
  }
