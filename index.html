@@ -170,9 +170,14 @@ var $=function(id){return document.getElementById(id);};
 var coarse=matchMedia('(pointer:coarse)').matches||('ontouchstart' in window);
 var F=-2.6; // shop floor
 var CRATES={
- soul:{n:'Soul 45s',b:'Left wall. Seven-inch singles in paper sleeves, some with the old label showing through the hole.'},
- jazz:{n:'Jazz pressings',b:'The bin in the middle. Heavy old LPs, corners soft, spines faded.'},
- r:{n:'The R crate',b:'Back wall, under the single bulb. A divider card with a big R in marker. Rarities, he says, if he says anything.'}
+ soul:{n:'Soul 45s',b:'Left wall. Seven-inch singles in paper sleeves, some with the old label showing through the hole.',w:'the left wall'},
+ blues:{n:'Blues & rock\u2019n\u2019roll',b:'Right wall, under the big mirror. Chess, Checker, Specialty, sleeves gone brown as tobacco.',w:'under the mirror'},
+ funk:{n:'Funk',b:'A low table at the back. Fat basslines in thin sleeves.',w:'the low table at the back'},
+ jazz:{n:'Jazz pressings',b:'The bin in the middle. Heavy old LPs, corners soft, spines faded.',w:'the bin in the middle'},
+ hh:{n:'Hamburg, nachts',b:'A small crate by the window, an old ferry ticket taped to it. Songs from up the street.',w:'the crate by the window'},
+ rap:{n:'Rap & breaks',b:'Front right, on a stack of milk crates by the counter. US classics and Hamburg rap from a few streets away.',w:'the milk crates by the counter'},
+ unk:{n:'Unbekannt',b:'A shoebox on the coffee table by the sofa. No divider, just UNBEKANNT in pencil on the lid. Old, obscure, mostly forgotten.',w:'the shoebox by the sofa'},
+ r:{n:'The R crate',b:'Back wall, under the single bulb. A divider card with a big R in marker. Rarities, he says, if he says anything.',w:'under the bulb at the back'}
 };
 // ids checked with YouTube's oEmbed on Oct 15, 2026; the first id that plays wins
 var RECS=[
@@ -195,7 +200,101 @@ var RECS=[
  {id:'chet',cr:'jazz',f:'LP',t:'My Funny Valentine',a:'Chet Baker',m:'Vocal and trumpet',p:16,cond:'Cover photo half rubbed away, like a ghost.',c:'#bfc6c9',ink:'#1f2a33',st:0,ids:["ni9Cp9mOOOg", "ENFGUo_Nfso", "sPaYhemq_4I"]},
  {id:'blakey',cr:'jazz',f:'LP',t:"Moanin'",a:'Art Blakey & The Jazz Messengers',m:'Blue Note, 1959',p:24,cond:'Heavy pressing. Someone scratched initials into the cover corner.',c:'#14324a',ink:'#ffffff',st:1,ids:["fsJ3JjpZyoA", "Cv9NSR-2DwM"]},
  {id:'ella',cr:'jazz',f:'LP',t:'Summertime',a:'Ella Fitzgerald & Louis Armstrong',m:'from Porgy and Bess · Verve',p:19,cond:'Double LP, one disc missing its inner sleeve.',c:'#e2b860',ink:'#3a1a0e',st:3,ids:["2HJCN3upMHE", "h3kQt14_5OQ"]},
- {id:'billie',cr:'jazz',f:'LP',t:"I'm a Fool to Want You",a:'Billie Holiday',m:'from Lady in Satin · Columbia, 1958',p:21,cond:'Satin-pink cover gone the colour of old roses.',c:'#c99aa2',ink:'#2a1418',st:2,ids:["qA4BXkF8Dfo", "1bN1O1aWl7E"]}
+ {id:'billie',cr:'jazz',f:'LP',t:"I'm a Fool to Want You",a:'Billie Holiday',m:'from Lady in Satin · Columbia, 1958',p:21,cond:'Satin-pink cover gone the colour of old roses.',c:'#c99aa2',ink:'#2a1418',st:2,ids:["qA4BXkF8Dfo", "1bN1O1aWl7E"]},
+ {"id": "muddy", "cr": "blues", "f": "45", "t": "Mannish Boy", "a": "Muddy Waters", "m": "Chess, 1955", "p": 14, "cond": "Label half peeled, groove deep as a ditch.", "c": "#d9c9a6", "l": "#1d4f8a", "ids": ["bSfqNEvykv0", "Wl0xvB-U6vU"]},
+ {"id": "wolf", "cr": "blues", "f": "45", "t": "Smokestack Lightnin'", "a": "Howlin' Wolf", "m": "Chess, 1956", "p": 15, "cond": "Sleeve smells of a wet cellar. The howl comes through anyway.", "c": "#cbb68e", "l": "#1d4f8a", "ids": ["VMUt8KdDtTY", "QS33LNHXpXM", "9Ri7TcukAJ8"]},
+ {"id": "hooker", "cr": "blues", "f": "45", "t": "Boom Boom", "a": "John Lee Hooker", "m": "Vee-Jay, 1962", "p": 12, "cond": "Someone stamped their foot along to this for years.", "c": "#e2d4b3", "l": "#111111", "ids": ["o_6SlT3Yy10", "dZOvSRNXL0c"]},
+ {"id": "bbking", "cr": "blues", "f": "LP", "t": "The Thrill Is Gone", "a": "B.B. King", "m": "BluesWay, 1969", "p": 16, "cond": "Cover corner bent like a dog-ear. Strings sting.", "c": "#3a2a3e", "ink": "#f2d9a0", "st": 1, "ids": ["kpC69qIe02E", "oica5jG7FpU"]},
+ {"id": "thornton", "cr": "blues", "f": "45", "t": "Hound Dog", "a": "Big Mama Thornton", "m": "Peacock, 1953", "p": 18, "cond": "The one before Elvis. Pencil on the sleeve: \"hers first\".", "c": "#e8d9b8", "l": "#c2372e", "ids": ["aKicGqIMpqk", "yoHDrzw-RPg", "BmpwvxW0gW0"]},
+ {"id": "rjohnson", "cr": "blues", "f": "45", "t": "Cross Road Blues", "a": "Robert Johnson", "m": "Vocalion, 1937", "p": 22, "cond": "A reissue in a brittle sleeve. Still sounds like a crossroads at midnight.", "c": "#c4ad80", "l": "#2a2a2a", "ids": ["bJ_7nYEpkBo", "Kxi4XkIVWLQ", "GtDlZdhHRCI"]},
+ {"id": "bodiddley", "cr": "blues", "f": "45", "t": "Bo Diddley", "a": "Bo Diddley", "m": "Checker, 1955", "p": 13, "cond": "That beat. Label scuffed from a hundred jukebox plays.", "c": "#ead9a9", "l": "#d4492a", "ids": ["lJj22Z006ec", "WJLy-Fnedy8", "PXIX-A1Lk-Y"]},
+ {"id": "berry", "cr": "blues", "f": "45", "t": "Johnny B. Goode", "a": "Chuck Berry", "m": "Chess, 1958", "p": 13, "cond": "Duck-walk wear on the edges.", "c": "#e0cfa8", "l": "#1d4f8a", "ids": ["Y-9Y4CCIWnM", "aKCt8ssC7cs"]},
+ {"id": "richard", "cr": "blues", "f": "45", "t": "Tutti Frutti", "a": "Little Richard", "m": "Specialty, 1955", "p": 13, "cond": "Loud even with the volume down.", "c": "#efe0b8", "l": "#e2b32e", "ids": ["NnIIvWnpaBU", "F13JNjpNW6c", "eQ-U2kGDHSI"]},
+ {"id": "fats", "cr": "blues", "f": "45", "t": "Blueberry Hill", "a": "Fats Domino", "m": "Imperial, 1956", "p": 11, "cond": "Gentle crackle, like rain on the window.", "c": "#dccbaa", "l": "#6b2a2a", "ids": ["uZXiNgwcqaY", "bQQCPrwKzdo"]},
+ {"id": "ettablind", "cr": "blues", "f": "45", "t": "I'd Rather Go Blind", "a": "Etta James", "m": "Cadet, 1967", "p": 15, "cond": "Flip side of a bigger hit. The flip side won.", "c": "#d4c2a0", "l": "#7a3a8a", "ids": ["Bcus42ihkTI", "BOCNryrNoW0"]},
+ {"id": "samdave", "cr": "soul", "f": "45", "t": "Soul Man", "a": "Sam & Dave", "m": "Stax, 1967", "p": 12, "cond": "Stax finger-snap logo, worn but proud.", "c": "#e6d6b0", "l": "#3a7ac4", "ids": ["S_OX2HwWy-o", "3ahzPFYyYtI", "5ONNSlk--tE"]},
+ {"id": "pickett", "cr": "soul", "f": "45", "t": "In the Midnight Hour", "a": "Wilson Pickett", "m": "Atlantic, 1965", "p": 12, "cond": "Corner nibbled. The horns are not.", "c": "#e2d2ae", "l": "#c2372e", "ids": ["Il-usrZxGns", "XGpA08-h0tU", "FGVGFfj7POA"]},
+ {"id": "temps", "cr": "soul", "f": "45", "t": "My Girl", "a": "The Temptations", "m": "Gordy, 1964", "p": 12, "cond": "Someone drew a tiny heart on the label in biro.", "c": "#efe3c8", "l": "#a8322a", "ids": ["8Ff2Z0Dq2sg", "eepLY8J4E6c", "y3KJ7d2qBoA"]},
+ {"id": "smokey", "cr": "soul", "f": "45", "t": "The Tracks of My Tears", "a": "Smokey Robinson & The Miracles", "m": "Tamla, 1965", "p": 13, "cond": "Faint ring of a glass. Fitting.", "c": "#e8dcc0", "l": "#e8a33a", "ids": ["Yf2CB32jDYc", "iELJxfRCc2s", "rNS6D4hSQdA"]},
+ {"id": "sledge", "cr": "soul", "f": "45", "t": "When a Man Loves a Woman", "a": "Percy Sledge", "m": "Atlantic, 1966", "p": 11, "cond": "Played so often the label went soft.", "c": "#dccba5", "l": "#c2372e", "ids": ["KwPxhWU1koE", "49NpTcWkhvw", "tbWDkg4T3G4"]},
+ {"id": "feeling", "cr": "soul", "f": "LP", "t": "Feeling Good", "a": "Nina Simone", "m": "Philips, 1965", "p": 18, "cond": "Cover a little sun-bleached on one side, like it sat in a window for years.", "c": "#141414", "ink": "#f2d26a", "st": 3, "ids": ["oHRNrgDIJfo", "Yc5jwR9KUvg", "xlNpmSN7mRg"]},
+ {"id": "algreen", "cr": "soul", "f": "45", "t": "Let's Stay Together", "a": "Al Green", "m": "Hi, 1971", "p": 11, "cond": "Clean copy. Somebody kept this one safe.", "c": "#e9dbb9", "l": "#2a5a9a", "ids": ["XXx6RDzR6eM", "2FEJINHoRcU", "uSu6tcbMOu0"]},
+ {"id": "supremes", "cr": "soul", "f": "45", "t": "Where Did Our Love Go", "a": "The Supremes", "m": "Motown, 1964", "p": 12, "cond": "Sleeve with three faces cut out of a magazine taped on.", "c": "#f0e2c4", "l": "#2a5a9a", "ids": ["kCxL82k6cSI", "qTBmgAOO0Nw", "Jt_31gR18NA"]},
+ {"id": "bookert", "cr": "soul", "f": "45", "t": "Green Onions", "a": "Booker T. & the M.G.'s", "m": "Stax, 1962", "p": 12, "cond": "Instrumental. The organ still smokes.", "c": "#d7e0b8", "l": "#3a7ac4", "ids": ["0oox9bJaGJ8", "VD6izVzuIkU", "_bpS-cOBK6Q"]},
+ {"id": "hathaway", "cr": "soul", "f": "LP", "t": "A Song for You", "a": "Donny Hathaway", "m": "Atco, 1971", "p": 17, "cond": "Gatefold creased right through his face. Voice unhurt.", "c": "#5a3a22", "ink": "#f3e1bc", "st": 0, "ids": ["riwePTnk-Zk", "HeHiio1sTTI"]},
+ {"id": "flack", "cr": "soul", "f": "45", "t": "Killing Me Softly with His Song", "a": "Roberta Flack", "m": "Atlantic, 1973", "p": 11, "cond": "Paper sleeve with a lipstick mark. Nobody asks.", "c": "#ead6c2", "l": "#c2372e", "ids": ["mrudT410TAI", "zlq0CUtkOSI", "DEbi_YjpA-Y"]},
+ {"id": "gladys", "cr": "soul", "f": "45", "t": "Midnight Train to Georgia", "a": "Gladys Knight & the Pips", "m": "Buddah, 1973", "p": 11, "cond": "A train ticket stub tucked in the sleeve.", "c": "#e0cfae", "l": "#d98a2a", "ids": ["A0F9lh8TiSM", "uLVJS2thNvs"]},
+ {"id": "sexmachine", "cr": "funk", "f": "45", "t": "Get Up (I Feel Like Being a) Sex Machine", "a": "James Brown", "m": "King, 1970", "p": 14, "cond": "Sweat-stained sleeve, if records could sweat.", "c": "#e6c77a", "l": "#a0262a", "ids": ["ow4ecyCQeRM", "y-_6YapZ_44", "6KjMn-OOVHg"]},
+ {"id": "sly", "cr": "funk", "f": "45", "t": "Everyday People", "a": "Sly & the Family Stone", "m": "Epic, 1968", "p": 12, "cond": "Bright sleeve, still loud in colour.", "c": "#f0d24a", "l": "#d8432a", "ids": ["3JvkaUvB-ec", "bsxM-zuKdmQ", "YUUhDoCx8zc"]},
+ {"id": "shaft", "cr": "funk", "f": "LP", "t": "Theme from Shaft", "a": "Isaac Hayes", "m": "Enterprise, 1971", "p": 18, "cond": "Hi-hat you can hear from the stairs.", "c": "#1a1a1a", "ink": "#e8b13a", "st": 1, "ids": ["fTU_9T5ufzY", "Q429AOpL_ds", "ZVj8FgMMAK8"]},
+ {"id": "stevie", "cr": "funk", "f": "45", "t": "Superstition", "a": "Stevie Wonder", "m": "Tamla, 1972", "p": 13, "cond": "Clavinet still crisp. Small crack in the sleeve.", "c": "#e8d4ac", "l": "#e8a33a", "ids": ["ftdZ363R9kQ", "egqv1mtos6A", "0CFuCYNx-1g"]},
+ {"id": "meters", "cr": "funk", "f": "45", "t": "Cissy Strut", "a": "The Meters", "m": "Josie, 1969", "p": 15, "cond": "Every DJ in Hamburg wanted this one once.", "c": "#d8c8a0", "l": "#2a7a5a", "ids": ["XdfwqlaGeM4", "MXI5Nuz6OHg", "COUt4JOSIVE"]},
+ {"id": "bottle", "cr": "funk", "f": "LP", "t": "The Bottle", "a": "Gil Scott-Heron", "m": "Strata-East, 1974", "p": 19, "cond": "Flute and a warning. Cover worn white at the folds.", "c": "#7a4a22", "ink": "#f3e1bc", "st": 2, "ids": ["EdhoX1Xu6ZI", "IX2xCacYaPg", "FkSFBcjOKHY"]},
+ {"id": "superfly", "cr": "funk", "f": "45", "t": "Superfly", "a": "Curtis Mayfield", "m": "Curtom, 1972", "p": 13, "cond": "Wah-wah and a little warp. Plays fine.", "c": "#e2c9a0", "l": "#e0702a", "ids": ["muLcm3_JSR4", "585pSKysWqk"]},
+ {"id": "lovely", "cr": "funk", "f": "45", "t": "Lovely Day", "a": "Bill Withers", "m": "Columbia, 1977", "p": 11, "cond": "Someone wrote \"for the mornings\" on the back.", "c": "#f1e1b4", "l": "#c2372e", "ids": ["bEeaS6fuUoA", "yfcTgnpo3vI"]},
+ {"id": "kool", "cr": "funk", "f": "45", "t": "Jungle Boogie", "a": "Kool & the Gang", "m": "De-Lite, 1973", "p": 12, "cond": "Grunts and horns, sleeve held together with tape.", "c": "#d8b878", "l": "#7a3a1a", "ids": ["QGKiC2suCHQ", "XzGr4s4vgIY"]},
+ {"id": "parliament", "cr": "funk", "f": "LP", "t": "Give Up the Funk (Tear the Roof off the Sucker)", "a": "Parliament", "m": "Casablanca, 1976", "p": 20, "cond": "Glitter worn off the cover. The bass did not wear off.", "c": "#2a1a4a", "ink": "#ff7ad1", "st": 3, "ids": ["xNpNTkSkrU8", "gBWH3OWfT2Y", "od-5gCO_PGE"]},
+ {"id": "proud", "cr": "funk", "f": "45", "t": "Proud Mary", "a": "Ike & Tina Turner", "m": "Liberty, 1971", "p": 12, "cond": "Starts nice and easy. Then it doesn’t.", "c": "#e6cfa8", "l": "#3a6ac4", "ids": ["TwpVpUYO3MM", "Gciy9oG5678", "n-AzcJMkbjA"]},
+ {"id": "favthings", "cr": "jazz", "f": "LP", "t": "My Favorite Things", "a": "John Coltrane", "m": "Atlantic, 1961", "p": 22, "cond": "Soprano sax curling round and round. Spine split.", "c": "#e9d8b0", "ink": "#a8322a", "st": 2, "ids": ["JQvc-Gkwhow", "qWG2dsXV5HI"]},
+ {"id": "lovesup", "cr": "jazz", "f": "LP", "t": "A Love Supreme, Pt. I: Acknowledgement", "a": "John Coltrane", "m": "Impulse!, 1965", "p": 26, "cond": "Black-and-white cover gone grey. Someone underlined the poem inside.", "c": "#202020", "ink": "#e9e3d6", "st": 0, "ids": ["Dmx2WuUPVcs", "u_-16q5Jlq4", "5Pi5ZJZ07ME"]},
+ {"id": "mingus", "cr": "jazz", "f": "LP", "t": "Moanin'", "a": "Charles Mingus", "m": "from Blues & Roots · Atlantic, 1960", "p": 20, "cond": "Baritone sax growls out of a scratched cover.", "c": "#e2d7c0", "ink": "#1d1d1d", "st": 1, "ids": ["2pB_C86h8mk", "m1JXuN13l6A", "__OSyznVDOY"]},
+ {"id": "herbie", "cr": "jazz", "f": "LP", "t": "Cantaloupe Island", "a": "Herbie Hancock", "m": "from Empyrean Isles · Blue Note, 1964", "p": 22, "cond": "Blue Note sleeve with a ring from a coffee mug.", "c": "#2a6a8a", "ink": "#f2ede2", "st": 1, "ids": ["otFVFLtRF_s", "8B1oIXGX0Io"]},
+ {"id": "cannon", "cr": "jazz", "f": "LP", "t": "Autumn Leaves", "a": "Cannonball Adderley", "m": "from Somethin’ Else · Blue Note, 1958", "p": 24, "cond": "Miles is on this one too. Cover softened by hands.", "c": "#e8e0cf", "ink": "#1d4f8a", "st": 3, "ids": ["CpB7-8SGlJ0", "pfxosTobxlI"]},
+ {"id": "rollins", "cr": "jazz", "f": "LP", "t": "St. Thomas", "a": "Sonny Rollins", "m": "from Saxophone Colossus · Prestige", "p": 21, "cond": "Calypso on a grey day. Heavy pressing.", "c": "#4a5a3a", "ink": "#f2ede2", "st": 0, "ids": ["fdakJqKPRDE", "_YynSucmcQo", "v4DTR0I7xhA"]},
+ {"id": "leemorgan", "cr": "jazz", "f": "LP", "t": "The Sidewinder", "a": "Lee Morgan", "m": "Blue Note, 1964", "p": 22, "cond": "Inner sleeve stamped \"Musikhaus\", long since closed.", "c": "#d9c17a", "ink": "#1a1a1a", "st": 1, "ids": ["NHN6-yWFKPc", "qJi03NqXfk8"]},
+ {"id": "silver", "cr": "jazz", "f": "LP", "t": "Song for My Father", "a": "Horace Silver", "m": "Blue Note, 1965", "p": 21, "cond": "His father on the cover, smiling, a bit faded.", "c": "#c9b89a", "ink": "#3a2a1a", "st": 2, "ids": ["mKf1x3CALAE", "CWeXOm49kE0", "NFjmWI-d6d4"]},
+ {"id": "sarah", "cr": "jazz", "f": "LP", "t": "Misty", "a": "Sarah Vaughan", "m": "Vocal", "p": 18, "cond": "Velvet voice, dusty sleeve.", "c": "#6a4a5a", "ink": "#f2e2d2", "st": 3, "ids": ["-PvOCziJ0UY", "_AqqtHOUzE4", "udCVAxGH0hg"]},
+ {"id": "armstrong", "cr": "jazz", "f": "45", "t": "What a Wonderful World", "a": "Louis Armstrong", "m": "ABC, 1967", "p": 10, "cond": "A cheap copy. Still the best three minutes in the crate.", "c": "#e8dcc0", "l": "#2a5a9a", "ids": ["rBrd_3VMC3c", "2nGKqH26xlg"]},
+ {"id": "atrain", "cr": "jazz", "f": "LP", "t": "Take the \"A\" Train", "a": "Duke Ellington", "m": "Big band", "p": 18, "cond": "Brittle old sleeve with a subway map doodle.", "c": "#d9c39a", "ink": "#2a2a2a", "st": 2, "ids": ["r2G1fKYFgVU", "aG4Tte6XGkA", "D6mFGy4g_n8"]},
+ {"id": "ipanema", "cr": "jazz", "f": "LP", "t": "The Girl from Ipanema", "a": "Stan Getz & João Gilberto", "m": "from Getz/Gilberto · Verve, 1964", "p": 20, "cond": "Painted cover, sun still warm on it.", "c": "#e8c48a", "ink": "#3a2a1a", "st": 3, "ids": ["sx0TLkdWFEU", "v5DZ5clg-bg"]},
+ {"id": "jamal", "cr": "jazz", "f": "LP", "t": "Poinciana", "a": "Ahmad Jamal", "m": "Argo, 1958", "p": 19, "cond": "Live in a Chicago lounge. You can hear the glasses.", "c": "#c8a46a", "ink": "#1a1a1a", "st": 0, "ids": ["KoGCrxZyU3o", "dbu9iKM_GPQ", "Z0e2G32f3IU"]},
+ {"id": "blueingreen", "cr": "jazz", "f": "LP", "t": "Blue in Green", "a": "Miles Davis", "m": "from Kind of Blue · Columbia, 1959", "p": 22, "cond": "A second copy, quieter, sadder. Bought from a widow, he says.", "c": "#1f3a4a", "ink": "#cfe0e8", "st": 1, "ids": ["TLDflhhdPCg", "oqNXw8l-U8U"]},
+ {"id": "mybaby", "cr": "jazz", "f": "LP", "t": "My Baby Just Cares for Me", "a": "Nina Simone", "m": "Bethlehem, 1958", "p": 18, "cond": "Piano bouncing. Somebody’s initials in the corner, then a heart.", "c": "#e9dcc4", "ink": "#7a2a3a", "st": 2, "ids": ["Jim4wympeZ0", "1j8TQrbxBzc", "eYSbUOoq4Vg"]},
+ {"id": "albers", "cr": "hh", "f": "45", "t": "Auf der Reeperbahn nachts um halb eins", "a": "Hans Albers", "m": "Schellack-era sailor song", "p": 9, "cond": "The street upstairs, sung by the man who made it famous.", "c": "#e0d0b0", "l": "#14325a", "ids": ["fhM_lOlAjqo", "YyIS_7AI45g", "ojvyG8gOOzE"]},
+ {"id": "quinn", "cr": "hh", "f": "45", "t": "Junge, komm bald wieder", "a": "Freddy Quinn", "m": "Polydor, 1963", "p": 8, "cond": "Harbour schlager. Sleeve with an anchor drawn in biro.", "c": "#dfe6ee", "l": "#14325a", "ids": ["6Ag3QNdomuQ", "kSYblBKZ75Y", "bMTcMjV893A"]},
+ {"id": "mybonnie", "cr": "hh", "f": "45", "t": "My Bonnie", "a": "Tony Sheridan & The Beat Brothers", "m": "Polydor, 1961", "p": 25, "cond": "Recorded in Hamburg. The Beat Brothers were the Beatles.", "c": "#e8dcc0", "l": "#e0702a", "ids": ["i3b2HMiFDZM", "tqKNg6VTGcg", "SaQh35doM4M"]},
+ {"id": "twist", "cr": "hh", "f": "45", "t": "Twist and Shout", "a": "The Beatles", "m": "Parlophone, 1963", "p": 14, "cond": "Four lads who learned to play on the Reeperbahn.", "c": "#e6dcc4", "l": "#111111", "ids": ["2RicaUqd9Hg", "b-VAxGJdJeQ"]},
+ {"id": "udo", "cr": "hh", "f": "45", "t": "Reeperbahn", "a": "Udo Lindenberg", "m": "1978", "p": 10, "cond": "Udo’s Reeperbahn, hat and all.", "c": "#2a2a2a", "l": "#e0b03a", "ids": ["Pa0DpTlObtA", "uI4JKN-J8rg"]},
+ {"id": "keephead", "cr": "rap", "f": "LP", "t": "Keep Ya Head Up", "a": "2Pac", "m": "Interscope, 1993", "p": 16, "cond": "For the women. Sleeve signed by nobody, loved by somebody.", "c": "#1a1a1a", "ink": "#e8c25a", "st": 1, "ids": ["fAJfDP3b5_U", "MSaAZZMs0FY", "SHVzWMFMH6Y"]},
+ {"id": "nas", "cr": "rap", "f": "LP", "t": "N.Y. State of Mind", "a": "Nas", "m": "from Illmatic · Columbia, 1994", "p": 20, "cond": "Cover photo of a kid’s face over the city. Crisp.", "c": "#5a4a3a", "ink": "#f2ede2", "st": 0, "ids": ["hI8A14Qcv68", "p-pTYMAXxMM"]},
+ {"id": "wutang", "cr": "rap", "f": "LP", "t": "C.R.E.A.M.", "a": "Wu-Tang Clan", "m": "Loud, 1993", "p": 18, "cond": "Wu logo scratched into the sleeve with a key.", "c": "#1a1a1a", "ink": "#f2c82a", "st": 1, "ids": ["ecRs1sWZIL4", "OhVn19ICQZc", "PBwAxmrE194"]},
+ {"id": "tribe", "cr": "rap", "f": "LP", "t": "Electric Relaxation", "a": "A Tribe Called Quest", "m": "Jive, 1993", "p": 17, "cond": "Smooth as the bassline. Corner worn soft.", "c": "#8a1a2a", "ink": "#f2ede2", "st": 3, "ids": ["HbPf6G1DJlY", "WHRnvjCkTsw"]},
+ {"id": "lauryn", "cr": "rap", "f": "LP", "t": "Doo Wop (That Thing)", "a": "Lauryn Hill", "m": "Ruffhouse, 1998", "p": 17, "cond": "Her face carved into a school desk on the cover.", "c": "#8a6a4a", "ink": "#f2ede2", "st": 2, "ids": ["wIbpc6QFXso", "T6QKqFPRZSA", "YjuhWhqY-bE"]},
+ {"id": "gangstarr", "cr": "rap", "f": "LP", "t": "Mass Appeal", "a": "Gang Starr", "m": "Chrysalis, 1994", "p": 16, "cond": "Premier’s loop never gets old.", "c": "#2a3a4a", "ink": "#e8d4a0", "st": 0, "ids": ["Y-1KQW4fksQ", "y9lNbNGbo24"]},
+ {"id": "rakim", "cr": "rap", "f": "LP", "t": "Paid in Full", "a": "Eric B. & Rakim", "m": "4th & B’way, 1987", "p": 18, "cond": "Gold chains on the cover, gone a bit brassy.", "c": "#c8a03a", "ink": "#1a1a1a", "st": 1, "ids": ["lQl6M1pAhi8", "E7t8eoA_1jQ", "b6aAFkP0BGU"]},
+ {"id": "pharcyde", "cr": "rap", "f": "LP", "t": "Passin' Me By", "a": "The Pharcyde", "m": "Delicious Vinyl, 1993", "p": 16, "cond": "Upright bass sample and a little heartbreak.", "c": "#d8b07a", "ink": "#2a1a0a", "st": 3, "ids": ["KhIqxfZA-yE", "a-mAK3uB2_0"]},
+ {"id": "advanced", "cr": "rap", "f": "LP", "t": "Fremd im eigenen Land", "a": "Advanced Chemistry", "m": "MZEE, 1992", "p": 22, "cond": "Deutscher Rap von ganz vorne. Sleeve with a German passport drawn on it.", "c": "#c8c0a8", "ink": "#1a1a1a", "st": 2, "ids": ["nhIGyeaX818", "HhsEcPiRKrU", "g6WwprpBEF8"]},
+ {"id": "beginner", "cr": "rap", "f": "LP", "t": "Liebeslied", "a": "Absolute Beginner", "m": "from Bambule · Buback, 1998", "p": 18, "cond": "Hamburg hip-hop. Pressed a few streets from here.", "c": "#e8d24a", "ink": "#1a1a1a", "st": 3, "ids": ["k8gNzJcpHW0", "AEWVbTtZ8H4"]},
+ {"id": "fettesbrot", "cr": "rap", "f": "LP", "t": "Nordisch by Nature", "a": "Fettes Brot", "m": "1995", "p": 16, "cond": "Plattdeutsch on a rap record. Coffee ring on the back.", "c": "#3a6a9a", "ink": "#f2ede2", "st": 0, "ids": ["KfWyo2mqXnw", "gYmVXA9v-d4", "eBAF55YMTfE"]},
+ {"id": "samy", "cr": "rap", "f": "LP", "t": "Weck mich auf", "a": "Samy Deluxe", "m": "2001", "p": 15, "cond": "Hamburg again. Sleeve tucked behind the others, like he kept it for himself.", "c": "#2a2a2a", "ink": "#e84a3a", "st": 1, "ids": ["A9hhRKu66Ps", "zIrrURh8urk", "8dZ7K03yTcs"]},
+ {"id": "darondo", "cr": "unk", "f": "45", "t": "Didn't I", "a": "Darondo", "m": "Music City, 1972", "p": 12, "cond": "A Bay Area private press. Hardly anyone bought it then. He did.", "c": "#d8c49a", "l": "#7a2a6a", "ids": ["RrlqZuoRG4o", "1zljNPO6W8E", "PZqQT5904_U"]},
+ {"id": "leemoses", "cr": "unk", "f": "45", "t": "Bad Girl", "a": "Lee Moses", "m": "Musicor, 1967", "p": 14, "cond": "Sleeve missing. Found loose behind a radiator, he swears.", "c": "#cbb68e", "l": "#2a5a2a", "ids": ["_Oq1qvNxoT8", "BnuJvs8Ty9k"]},
+ {"id": "gloriajones", "cr": "unk", "f": "45", "t": "Tainted Love", "a": "Gloria Jones", "m": "Champion, 1964", "p": 13, "cond": "The original, before the synth version. A northern soul sticker on the label.", "c": "#e2d4b3", "l": "#c2372e", "ids": ["9obvlVPJBEg", "NSehtaY6k1U"]},
+ {"id": "babyhuey", "cr": "unk", "f": "45", "t": "Hard Times", "a": "Baby Huey", "m": "Curtom, 1971", "p": 12, "cond": "A drum break half of hip-hop borrowed. Label gone pale.", "c": "#d6c09a", "l": "#e0702a", "ids": ["FpfhTmcbDgE", "FFZ58rJiE4k", "zMIzTh0Lafg"]},
+ {"id": "syl", "cr": "unk", "f": "45", "t": "Is It Because I'm Black", "a": "Syl Johnson", "m": "Twinight, 1969", "p": 13, "cond": "Heavy and slow. Someone pencilled the date they bought it on the back.", "c": "#c9b48c", "l": "#1a1a1a", "ids": ["uZXNg4Z72f0", "zJPZZUrlJa0", "6JNwqRF32ZI"]},
+ {"id": "timmy", "cr": "unk", "f": "45", "t": "Why Can't We Live Together", "a": "Timmy Thomas", "m": "Glades, 1972", "p": 10, "cond": "Just an organ and a drum machine. Sleeve soft as cloth.", "c": "#e6dcc0", "l": "#2a7a9a", "ids": ["hULALx9PuXA", "KYx2uZRlJCk"]},
+ {"id": "ruthbrown", "cr": "unk", "f": "45", "t": "Teardrops from My Eyes", "a": "Ruth Brown", "m": "Atlantic, 1950", "p": 12, "cond": "Brittle old shellac-era sound on a later pressing.", "c": "#d9c8a4", "l": "#c2372e", "ids": ["GVl5LK7iDgE", "w98sREhULms"]},
+ {"id": "flamingos", "cr": "unk", "f": "45", "t": "I Only Have Eyes for You", "a": "The Flamingos", "m": "End, 1959", "p": 11, "cond": "Echo like a ballroom at three in the morning.", "c": "#e8dcc4", "l": "#3a3a8a", "ids": ["1_urvud-Oi0", "FvzNeh4Mq1o"]},
+ {"id": "tharpe", "cr": "unk", "f": "45", "t": "Didn't It Rain", "a": "Sister Rosetta Tharpe", "m": "Decca, 1948", "p": 14, "cond": "Electric guitar in a church. Water stain on the sleeve, of course.", "c": "#d2c09c", "l": "#2a2a6a", "ids": ["qKLPj3skmeo", "Y9a49oFalZE"]},
+ {"id": "slim", "cr": "unk", "f": "45", "t": "The Flat Foot Floogie", "a": "Slim & Slam", "m": "Vocalion, 1938", "p": 13, "cond": "Nonsense words, perfect swing. Corner chewed by something.", "c": "#c8b088", "l": "#1a1a1a", "ids": ["G4CFRnhZj-s", "CX5_b9_u2Tw", "lFVeJ4wHWdQ"]},
+ {"id": "lilgreen", "cr": "unk", "f": "45", "t": "Why Don't You Do Right", "a": "Lil Green", "m": "Bluebird, 1941", "p": 13, "cond": "Before Peggy Lee made it famous. Hiss like a kettle.", "c": "#cdb890", "l": "#7a2a2a", "ids": ["LpDq9mGBECs", "oavQY5V0xpg"]},
+ {"id": "bettye", "cr": "unk", "f": "45", "t": "Make Me Yours", "a": "Bettye Swann", "m": "Money, 1967", "p": 12, "cond": "A small label from LA. Someone wrote “danced to this” on the sleeve.", "c": "#e6d2b4", "l": "#3a8a4a", "ids": ["2DMsRZYScKA", "OSHfeb7YhuU"]},
+ {"id": "lindajones", "cr": "unk", "f": "45", "t": "Hypnotized", "a": "Linda Jones", "m": "Loma, 1967", "p": 12, "cond": "That voice. Label stuck on slightly crooked.", "c": "#e0ccaa", "l": "#7a3a8a", "ids": ["yBlTYF8NRq4", "9UTqdGZt2_4", "-ZPSkN7o0ak"]},
+ {"id": "willie", "cr": "unk", "f": "45", "t": "Fever", "a": "Little Willie John", "m": "King, 1956", "p": 13, "cond": "The original Fever. Finger-snaps worn into the groove.", "c": "#d8c8a0", "l": "#a0262a", "ids": ["6WL-SNDHyVo", "fwX4F_ROMPU", "szz27BuDgeU"]},
+ {"id": "moonglows", "cr": "unk", "f": "45", "t": "Sincerely", "a": "The Moonglows", "m": "Chess, 1954", "p": 12, "cond": "Doo-wop so soft you lean in to hear it.", "c": "#e2d6bc", "l": "#1d4f8a", "ids": ["RCdq8gRA2l0", "jnwOGVjQYh0"]},
+ {"id": "wattsexpress", "cr": "unk", "f": "45", "t": "Express Yourself", "a": "Charles Wright & the Watts 103rd Street Rhythm Band", "m": "Warner Bros., 1970", "p": 12, "cond": "A long name on a short label. Groove for days.", "c": "#e8c878", "l": "#2a2a2a", "ids": ["OFyZ4HiLbl0", "jW4VZ5J0fNQ"]},
+ {"id": "rodriguez", "cr": "unk", "f": "LP", "t": "Sugar Man", "a": "Rodriguez", "m": "from Cold Fact · Sussex, 1970", "p": 18, "cond": "Sold almost nothing in America. Cover a little foxed.", "c": "#3a2a2a", "ink": "#e8c48a", "st": 1, "ids": ["E90_aL870ao", "eu5W-po-cLI"]},
+ {"id": "alligator", "cr": "r", "f": "45", "t": "Alligator Wine", "a": "Screamin' Jay Hawkins", "m": "Okeh, 1958", "p": 15, "cond": "The other Screamin' Jay single. The cat doesn't care for this one.", "c": "#2a1a12", "l": "#7a1a1a", "ids": ["GL4exhfaun8", "MI3YzuzwK44", "l_mMPB4Bgig"]},
+ {"id": "paloma", "cr": "hh", "f": "45", "t": "La Paloma", "a": "Hans Albers", "m": "from the film Große Freiheit Nr. 7, 1944", "p": 9, "cond": "Named after the street round the corner. Shellac-era and still swaying.", "c": "#e4d6b6", "l": "#14325a", "ids": ["1SMuHDUXANA", "CN5T1aVK1V4", "izVR4VsEIp4"]},
+ {"id": "ohjonny", "cr": "hh", "f": "LP", "t": "Oh Jonny", "a": "Jan Delay", "m": "Vertigo, 2009", "p": 14, "cond": "Hamburg funk with a hat on. Sleeve smells faintly of the Schanze.", "c": "#1a1a1a", "ink": "#e8c25a", "st": 1, "ids": ["kW7u7ptj-j4", "D3DNXhIreUc"]},
+ {"id": "ahnma", "cr": "hh", "f": "LP", "t": "Ahnma", "a": "Beginner feat. Gzuz & Gentleman", "m": "Vertigo, 2016", "p": 16, "cond": "Hamburg rap, old guard and new. Bass you feel in the crate.", "c": "#e8e2d6", "ink": "#1a1a1a", "st": 0, "ids": ["C6_Uk_2rkQg", "KEzaoC4duD8"]},
+ {"id": "soulstorm", "cr": "soul", "f": "LP", "t": "Soulstorm", "a": "Patrice", "m": "Supow, 2005", "p": 15, "cond": "Reggae soul from Cologne. Somebody played this one a lot.", "c": "#3a2a1a", "ink": "#e8d4a0", "st": 2, "ids": ["HpLcnUQ9TRs", "6V5BwGgC0Fg", "LnmSSkNLYhs"]},
+ {"id": "onandon", "cr": "soul", "f": "45", "t": "On & On", "a": "Erykah Badu", "m": "Kedar, 1997", "p": 12, "cond": "Incense still in the sleeve, or maybe that's the shop.", "c": "#d8b878", "l": "#5a2a6a", "ids": ["TW28iWV7nxE", "j-yh7sGQe2Q"]},
+ {"id": "dearmama", "cr": "rap", "f": "LP", "t": "Dear Mama", "a": "2Pac", "m": "Interscope, 1995", "p": 17, "cond": "For his mother. The corner of the sleeve is soft from being held.", "c": "#2a2a2a", "ink": "#e8c25a", "st": 1, "ids": ["Mb1ZvUDvLDY", "i2aqxtAETJs"]},
+ {"id": "juicy", "cr": "rap", "f": "45", "t": "Juicy", "a": "The Notorious B.I.G.", "m": "Bad Boy, 1994", "p": 13, "cond": "It was all a dream. Label slightly off-centre.", "c": "#1a1a1a", "l": "#c8a03a", "ids": ["_JZom_gVfuw", "7Y8VPQcPHhY"]},
+ {"id": "debby", "cr": "jazz", "f": "LP", "t": "Waltz for Debby", "a": "Bill Evans Trio", "m": "Riverside, live at the Village Vanguard, 1961", "p": 19, "cond": "You can hear glasses clinking in the club. Quiet piano, no rush.", "c": "#cfd6da", "ink": "#1f2a33", "st": 0, "ids": ["PQmZctWwsCE", "wCINvavqFXk"]},
+ {"id": "wangdang", "cr": "blues", "f": "45", "t": "Wang Dang Doodle", "a": "Koko Taylor", "m": "Checker, 1966", "p": 12, "cond": "Chicago blues, all-night party. Label worn white by the needle.", "c": "#e0cfa8", "l": "#2a4a8a", "ids": ["1qXp3nlcWoU", "X4xum7FVPh8", "qyUHkY0K8HE"]},
+ {"id": "matumbi", "cr": "unk", "f": "45", "t": "Point of View (Squeeze a Little Lovin')", "a": "Matumbi", "m": "EMI, 1979", "p": 14, "cond": "London lovers rock, Dennis Bovell on the desk. Found at the bottom of the shoebox.", "c": "#d8c49a", "l": "#2a6a3a", "ids": ["V4M2FRvRvFg", "VgJn7HeADHQ", "GK-QITkprJI"]}
 ];
 var BYID={};RECS.forEach(function(r){BYID[r.id]=r;});
 function store(k,d){try{return JSON.parse(localStorage.getItem(k))||d;}catch(e){return d;}}
@@ -261,9 +360,10 @@ function songRow(r){
 function renderPlayer(){
  var lf=$('lFound'),lr=$('lRest');lf.innerHTML='';lr.innerHTML='';
  var found=FOUND.map(function(id){return BYID[id];}).filter(Boolean),rest=RECS.filter(function(r){return FOUND.indexOf(r.id)<0;});
- ORDER=found.concat(rest).map(function(r){return r.id;});
+ rest.sort(function(a,b){return Object.keys(CRATES).indexOf(a.cr)-Object.keys(CRATES).indexOf(b.cr);});ORDER=found.concat(rest).map(function(r){return r.id;});
  if(!found.length){var p=document.createElement('p');p.className='empty';p.textContent='Nothing yet. Pull a record out of a crate and it shows up here.';lf.appendChild(p);}
- found.forEach(function(r){lf.appendChild(songRow(r));});rest.forEach(function(r){lr.appendChild(songRow(r));});
+ found.forEach(function(r){lf.appendChild(songRow(r));});
+ Object.keys(CRATES).forEach(function(k){var rr=rest.filter(function(r){return r.cr===k;});if(!rr.length)return;var h=document.createElement('li');h.className='sub';h.textContent=CRATES[k].n+' \u00b7 '+rr.length;lr.appendChild(h);rr.forEach(function(r){lr.appendChild(songRow(r));});});
  $('gFound').textContent='Your finds · '+found.length+' of '+RECS.length;
  $('plStop').classList.toggle('hide',!NOW);
 }
@@ -289,6 +389,7 @@ function playRec(id){
  startYT(r.ids[0]);renderPlayer();setDeckRecord(r);house(false);
  crackle(.8);
 }
+var _playRec=playRec;playRec=function(id){_playRec(id);if(id==='hawkins')catSpell();};
 function stopRec(){NOW=null;PLAYING=false;if(yt&&yt.stopVideo)try{yt.stopVideo();}catch(e){}$('np').classList.add('hide');document.body.classList.remove('np-on');renderPlayer();setDeckRecord(null);if(inShop())house(true);}
 function nextRec(){if(!ORDER.length)renderPlayer();var i=ORDER.indexOf(NOW);playRec(ORDER[(i+1)%ORDER.length]);}
 $('npStop').onclick=stopRec;$('npNext').onclick=nextRec;$('npList').onclick=openPlayer;$('plStop').onclick=stopRec;
@@ -308,23 +409,15 @@ function unlock(){
  // street rumble
  gStreet=AC.createGain();gStreet.gain.value=0;gStreet.connect(master);
  var n=AC.createBufferSource();n.buffer=noiseBuf(4,true);n.loop=true;var lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=380;n.connect(lp);lp.connect(gStreet);n.start();
- // the house record: crackle + a slow, scratched sax line
+ // room tone: a very faint vinyl crackle, nothing else
  gHouse=AC.createGain();gHouse.gain.value=0;gHouse.connect(master);
  var cb=AC.createBuffer(1,AC.sampleRate*3,AC.sampleRate),cd=cb.getChannelData(0);for(var i=0;i<cd.length;i++){cd[i]=(Math.random()<.0009?(Math.random()*2-1)*.9:0)+(Math.random()*2-1)*.012;}
  var cs=AC.createBufferSource();cs.buffer=cb;cs.loop=true;var cg=AC.createGain();cg.gain.value=.35;cs.connect(cg);cg.connect(gHouse);cs.start();
  gBuzz=AC.createGain();gBuzz.gain.value=0;gBuzz.connect(master);
  var bo=AC.createOscillator();bo.type='square';bo.frequency.value=118;var bf=AC.createBiquadFilter();bf.type='bandpass';bf.frequency.value=900;bf.Q.value=.7;bo.connect(bf);bf.connect(gBuzz);bo.start();
 }
-var SAX=[[62,1],[65,.5],[67,.5],[68,.5],[67,1.5],[65,.5],[62,1],[60,.5],[62,2.5],[0,1],[67,1],[70,.5],[69,.5],[67,1],[65,.5],[67,.5],[62,3],[0,1.5]];
-function saxLoop(){
- if(!AC||!houseOn)return;var t=AC.currentTime+.05,beat=.62;
- SAX.forEach(function(nt){var d=nt[1]*beat;if(nt[0]){var o=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain(),v=AC.createOscillator(),vg=AC.createGain();
-  o.type='sawtooth';o.frequency.value=440*Math.pow(2,(nt[0]-69)/12);v.frequency.value=5;vg.gain.value=4;v.connect(vg);vg.connect(o.frequency);
-  f.type='lowpass';f.frequency.value=1100;f.Q.value=3;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.09,t+.08);g.gain.setValueAtTime(.08,t+d*.75);g.gain.linearRampToValueAtTime(0,t+d*.98);
-  o.connect(f);f.connect(g);g.connect(gHouse);o.start(t);v.start(t);o.stop(t+d);v.stop(t+d);}t+=d;});
- houseTimer=setTimeout(saxLoop,(t-AC.currentTime)*1000-60);
-}
-function house(on){if(on&&NOW)on=false;if(on===houseOn)return;houseOn=on;clearTimeout(houseTimer);if(on&&AC)saxLoop();}
+// (no house music any more: only the faint crackle loop plays in the shop)
+function house(on){houseOn=false;clearTimeout(houseTimer);}
 function crackle(sec){if(!AC)return;var s=AC.createBufferSource();s.buffer=noiseBuf(sec,false);var f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=2500;var g=AC.createGain();g.gain.value=.05;s.connect(f);f.connect(g);g.connect(master);s.start();}
 function buzz(pattern){if(!AC)return;var t=AC.currentTime;pattern.forEach(function(p){gBuzz.gain.setValueAtTime(p[1]*.12,t);t+=p[0];});gBuzz.gain.setValueAtTime(0,t);}
 function setSound(on){snd.on=on;unlock();if(master)master.gain.value=on?1:0;$('bSound').textContent=on?'Sound on':'Sound off';if(on&&inShop())house(true);}
@@ -358,7 +451,8 @@ function box(w,h,d,mat,x,y,z,parent){var m=new THREE.Mesh(new THREE.BoxGeometry(
 function plight(col,int,dist,x,y,z){var l=new THREE.PointLight(col,int,dist,1.6);l.position.set(x,y,z);scene.add(l);return l;}
 scene.add(new THREE.AmbientLight(0x3a2c34,.9));scene.add(new THREE.HemisphereLight(0x5a4a6a,0x1a100a,.5));
 
-// ---- the Reeperbahn ----
+// ---- the Reeperbahn (moved 6 m out, so a side alley runs back to the stairs) ----
+var STREET0=scene.children.length,DZ=6;
 box(32,.2,4.5,MAT.cobble,0,-.1,.75);            // our sidewalk z -1.5..3
 box(32,.2,7,MAT.road,0,-.22,6.5);               // road z 3..10
 box(32,.2,2.5,MAT.cobble,0,-.1,11.25);          // far sidewalk
@@ -383,8 +477,25 @@ function crateBox(x,y,z,ry,parent,full){var g=new THREE.Group();box(.62,.36,.36,
 crateBox(1.25,0,-1.1,.1);crateBox(1.9,0,-1.05,-.05);crateBox(1.55,.36,-1.08,.2);crateBox(1.3,0,-.6,1.6);crateBox(2.2,0,-.55,.05);crateBox(1.75,.36,-.6,-.1);crateBox(1.1,0,.15,.3);
 var sign2=new THREE.Mesh(new THREE.PlaneGeometry(.5,.3),new THREE.MeshLambertMaterial({map:tex(160,96,function(g,w,h){g.fillStyle='#b8986a';g.fillRect(0,0,w,h);g.fillStyle='#1a1008';g.font='700 34px "Marker Felt","Comic Sans MS",cursive';g.textAlign='center';g.fillText('ALLES',w/2,40);g.fillText('2 €',w/2,80);})}));sign2.position.set(1.75,.62,-.4);sign2.rotation.x=-.2;scene.add(sign2);
 // rain
-var RAIN_N=coarse?350:700,rg=new THREE.BufferGeometry(),rp=new Float32Array(RAIN_N*3);for(var ri=0;ri<RAIN_N;ri++){rp[ri*3]=(Math.random()-.5)*28;rp[ri*3+1]=Math.random()*8;rp[ri*3+2]=-1.3+Math.random()*11.5;}
+var RAIN_N=coarse?350:700,rg=new THREE.BufferGeometry(),rp=new Float32Array(RAIN_N*3);for(var ri=0;ri<RAIN_N;ri++){rp[ri*3]=(Math.random()-.5)*28;rp[ri*3+1]=Math.random()*8;rp[ri*3+2]=-7.3+Math.random()*17.5;}
 rg.setAttribute('position',new THREE.BufferAttribute(rp,3));var rain=new THREE.Points(rg,new THREE.PointsMaterial({color:0x9aa8c0,size:.035,transparent:true,opacity:.55}));scene.add(rain);
+(function(){for(var i=STREET0;i<scene.children.length;i++){var o=scene.children[i];if(o===L.well)continue;o.position.z+=DZ;}})();
+// the side alley: through the archway, back to a door at the top of the stairs
+box(1.8,.2,6.2,MAT.cobble,0,-.1,1.6);
+box(.3,7,6.2,MAT.brick,-.95,3.5,1.6);box(.3,7,6.2,MAT.brick,.95,3.5,1.6);
+// back of the alley (z=-1.5): brick with a doorway |x|<.5
+box(.45,2.3,.3,MAT.brick,-.7,1.15,-1.5);box(.45,2.3,.3,MAT.brick,.7,1.15,-1.5);box(1.9,4.7,.3,MAT.brick,0,4.65,-1.5);
+box(.07,2.2,.32,M({color:0x1a110b}),-.5,1.1,-1.5);box(.07,2.2,.32,M({color:0x1a110b}),.5,1.1,-1.5);box(1.07,.08,.32,M({color:0x1a110b}),0,2.22,-1.5);
+// bins, a puddle, a chalked arrow
+box(.5,.75,.5,M({color:0x2a3a2e}),-.6,.375,2.6);box(.52,.06,.52,M({color:0x1e2a22}),-.6,.78,2.6);
+var pud=new THREE.Mesh(new THREE.CircleGeometry(.35,20),new THREE.MeshPhongMaterial({color:0x10101a,shininess:120,specular:0x8888aa}));pud.rotation.x=-Math.PI/2;pud.scale.set(1,.6,1);pud.position.set(.2,.01,.9);scene.add(pud);
+var chalk=new THREE.Mesh(new THREE.PlaneGeometry(.5,.5),new THREE.MeshBasicMaterial({transparent:true,map:tex(128,128,function(g){g.strokeStyle='rgba(230,230,220,.75)';g.lineWidth=6;g.lineCap='round';g.beginPath();g.moveTo(64,15);g.lineTo(64,105);g.moveTo(35,75);g.lineTo(64,108);g.lineTo(93,75);g.stroke();})}));chalk.rotation.x=-Math.PI/2;chalk.rotation.z=Math.PI;chalk.position.set(-.2,.012,.2);scene.add(chalk);
+// blinking VINYL sign over the door, one letter dying
+function vinylTex(dead){return tex(512,160,function(g,W,H){g.font='700 112px Helvetica,Arial,sans-serif';g.textAlign='left';g.textBaseline='middle';var x=40,t='VINYL';for(var i=0;i<t.length;i++){var on=!(dead&&i===3);g.shadowColor='#ff3d8b';g.shadowBlur=on?28:0;g.fillStyle=on?'#ff4a96':'rgba(90,30,50,.6)';g.fillText(t[i],x,H/2+6);if(on){g.shadowBlur=6;g.globalAlpha=.55;g.fillStyle='#fff';g.fillText(t[i],x,H/2+6);g.globalAlpha=1;}x+=g.measureText(t[i]).width+6;}});}
+var vinylTexA=vinylTex(false),vinylTexB=vinylTex(true),vinylT=0;
+var vinylSign=new THREE.Mesh(new THREE.PlaneGeometry(1.2,.375),new THREE.MeshBasicMaterial({map:vinylTexA,transparent:true,fog:false}));vinylSign.position.set(0,2.75,-1.33);scene.add(vinylSign);
+box(1.3,.45,.04,M({color:0x141012}),0,2.75,-1.37);
+var vinylLight=plight(0xff3d8b,1.6,6,0,2.6,-.9);
 
 // ---- stairwell down (|x|<0.8, z -1.5..-5) ----
 var STEP_N=13,TOP=-1.5,BOT=-4.5,RUN=(TOP-BOT)/STEP_N,RISE=-F/STEP_N;
@@ -397,16 +508,20 @@ box(1.8,.3,3.6,MAT.plaster,0,2.45,-3.3); // ceiling over the well
 var wellBulb=new THREE.Mesh(new THREE.SphereGeometry(.06,10,8),new THREE.MeshBasicMaterial({color:0xffd9a0}));wellBulb.position.set(0,2.2,-2.6);scene.add(wellBulb);
 // shop front wall z=-5 with the door
 box(4.0,2.6,.2,MAT.plaster,-2.5,F+1.3,-5.0);box(4.0,2.6,.2,MAT.plaster,2.5,F+1.3,-5.0);box(1.0,.5,.2,MAT.plaster,0,F+2.35,-5.0);box(.08,2.1,.26,M({color:0x1a110b}),-.5,F+1.05,-5.0);box(.08,2.1,.26,M({color:0x1a110b}),.5,F+1.05,-5.0);box(1.08,.08,.26,M({color:0x1a110b}),0,F+2.12,-5.0);
-var doorPivot=new THREE.Group();doorPivot.position.set(-.45,F,-5.0);scene.add(doorPivot);
+// the door at the top of the stairs (opens after the buzzer)
+var doorPivot=new THREE.Group();doorPivot.position.set(-.45,0,-1.45);scene.add(doorPivot);
 var door=box(.9,2.1,.06,M({color:0x4a2e1e}),.45,1.05,0,doorPivot);box(.3,.2,.07,M({color:0x1a120c}),.45,1.6,0,doorPivot);box(.05,.12,.08,MAT.metal,.82,1.0,.02,doorPivot);
-// buzzer
-var buzzerPlate=box(.1,.16,.04,M({color:0x7a6a50}),.6,F+1.35,-4.86);var buzzerBtn=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.02,10),new THREE.MeshBasicMaterial({color:0x553322}));buzzerBtn.rotation.x=Math.PI/2;buzzerBtn.position.set(.6,F+1.35,-4.835);scene.add(buzzerBtn);
-var doorLight=plight(0xffa860,.9,5,0,F+2.2,-4.55);var doorBulb=new THREE.Mesh(new THREE.SphereGeometry(.04,8,6),new THREE.MeshBasicMaterial({color:0xffc070}));doorBulb.position.set(0,F+2.25,-4.8);scene.add(doorBulb);
+// buzzer on the brick, right of the door
+var buzzerPlate=box(.1,.16,.04,M({color:0x7a6a50}),.66,1.35,-1.33);var buzzerBtn=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.02,10),new THREE.MeshBasicMaterial({color:0x553322}));buzzerBtn.rotation.x=Math.PI/2;buzzerBtn.position.set(.66,1.35,-1.305);scene.add(buzzerBtn);
+// the half-broken lamp on the wall, left of the door
+box(.05,.05,.2,MAT.dark,-.68,2.05,-1.25);var doorLight=plight(0xffa860,.9,5,-.68,1.9,-1.0);var doorBulb=new THREE.Mesh(new THREE.SphereGeometry(.05,8,6),new THREE.MeshBasicMaterial({color:0xffc070}));doorBulb.position.set(-.68,1.98,-1.13);scene.add(doorBulb);
+var lampCage=new THREE.Mesh(new THREE.CylinderGeometry(.07,.08,.14,8,1,true),new THREE.MeshBasicMaterial({color:0x222222,wireframe:true}));lampCage.position.copy(doorBulb.position);lampCage.rotation.z=.25;scene.add(lampCage);
+var lampDead=0;
 
 // ---- the shop: x -4.5..4.5, z -5..-14.6, floor F, ceiling F+2.45 ----
 var CEIL=F+2.45;
 box(9,.1,9.6,MAT.floor,0,F-.05,-9.8);box(9,.1,9.6,MAT.plaster,0,CEIL+.05,-9.8);
-box(.2,2.6,9.6,MAT.plaster,-4.6,F+1.3,-9.8);box(.2,2.6,9.6,MAT.plaster,4.6,F+1.3,-9.8);box(9,2.6,.2,MAT.plaster,0,F+1.3,-14.7);
+box(.2,2.6,9.6,MAT.plaster,-4.6,F+1.3,-9.8);var rWall=box(.2,2.6,9.6,MAT.plaster,4.6,F+1.3,-9.8);box(9,2.6,.2,MAT.plaster,0,F+1.3,-14.7);
 // basement window, high on the front wall, neon glow from the street
 var bw=new THREE.Mesh(new THREE.PlaneGeometry(1.1,.32),new THREE.MeshBasicMaterial({color:0x6a3a8a}));bw.position.set(-2.6,CEIL-.3,-5.115);bw.rotation.y=Math.PI;scene.add(bw);
 for(var bi=0;bi<5;bi++)box(.02,.34,.02,MAT.dark,-3.1+bi*.25,CEIL-.3,-5.13);
@@ -416,7 +531,7 @@ rack(-4.1,-8,.6,5,7);rack(4.1,-11.4,.6,5,7);rack(0,-14.3,6,.6,8);rack(-1.6,-10,.
 for(var hz=-6;hz>-14.5;hz-=.9){box(9,.06,.1,MAT.wood,0,CEIL-.02,hz);}
 // posters
 function poster(x,y,z,ry,txt,col){var m=new THREE.Mesh(new THREE.PlaneGeometry(.6,.85),M({map:tex(120,170,function(g,w,h){g.fillStyle=col;g.fillRect(0,0,w,h);g.fillStyle='#1a120c';g.font='800 22px Helvetica,Arial';g.textAlign='center';txt.split('|').forEach(function(t,i){g.fillText(t,w/2,40+i*28);});speck(g,w,h,500,'#3a2a1a',.4);g.globalAlpha=.25;g.fillStyle='#000';g.fillRect(0,h-20,w,20);})}));m.position.set(x,y,z);m.rotation.y=ry;scene.add(m);}
-poster(-4.49,F+1.65,-13.3,Math.PI/2,'SOUL|NIGHT|1966','#d9b46a');poster(4.49,F+1.6,-10.2,-Math.PI/2,'JAZZ|IM|KELLER','#b9c8b0');poster(2.2,F+1.7,-14.59,0,'BLUE|NOTES|LIVE','#9ab0c8');
+poster(-4.49,F+1.65,-13.3,Math.PI/2,'SOUL|NIGHT|1966','#d9b46a');poster(-1.25,F+1.45,-5.11,Math.PI,'JAZZ|IM|KELLER','#b9c8b0');poster(2.2,F+1.7,-14.59,0,'BLUE|NOTES|LIVE','#9ab0c8');
 
 // fridge (prehistoric)
 var fridge=new THREE.Group();fridge.position.set(-3.85,F,-5.75);scene.add(fridge);
@@ -434,25 +549,142 @@ var torso=box(.48,.62,.3,oMat,0,1.0,0,owner);var head=new THREE.Group();head.pos
 var hd=new THREE.Mesh(new THREE.SphereGeometry(.13,14,10),oMat);head.add(hd);var cap=new THREE.Mesh(new THREE.CylinderGeometry(.145,.15,.07,14),oMat);cap.position.y=.08;head.add(cap);box(.26,.02,.12,oMat,0,.06,.15,head);head.rotation.x=.55;
 box(.14,.42,.14,oMat,-.24,1.0,.12,owner).rotation.x=-.9;box(.14,.42,.14,oMat,.24,1.0,.12,owner).rotation.x=-.9;
 var mag=new THREE.Group();mag.position.set(0,1.12,.4);mag.rotation.x=-.9;owner.add(mag);
-var magL=box(.22,.3,.01,magMat,-.11,0,0,mag);var page=new THREE.Group();mag.add(page);box(.22,.3,.01,M({color:0xe2cf98}),.11,0,0,page);
+var newsTex=tex(128,176,function(g,w,h){g.fillStyle='#ddd3bc';g.fillRect(0,0,w,h);g.fillStyle='#2a2620';g.fillRect(8,8,w-16,10);for(var c=0;c<3;c++)for(var y=26;y<h-8;y+=5){g.globalAlpha=.35+Math.random()*.3;g.fillRect(8+c*39,y,32+Math.random()*4,2);}g.globalAlpha=1;});
+var crossTex=tex(128,176,function(g,w,h){g.fillStyle='#e2d9c2';g.fillRect(0,0,w,h);var n=9,s=12,ox=10,oy=12;for(var y=0;y<n;y++)for(var x=0;x<n;x++){var blk=((x*7+y*3)%5===0);g.fillStyle=blk?'#1a1814':'#f4eedd';g.fillRect(ox+x*s,oy+y*s,s-1,s-1);if(!blk&&Math.random()<.45){g.fillStyle='#2a2a6a';g.font='9px Helvetica';g.fillText('ABEJLMNRST'[Math.floor(Math.random()*10)],ox+x*s+3,oy+y*s+9);}}g.fillStyle='#2a2620';for(var yy=128;yy<h-8;yy+=6){g.globalAlpha=.4;g.fillRect(10,yy,50+Math.random()*50,2);}g.globalAlpha=1;});
+var magL=box(.22,.3,.01,M({map:newsTex}),-.11,0,0,mag);var page=new THREE.Group();mag.add(page);box(.22,.3,.01,M({map:crossTex}),.11,0,0,page);
+var pencil=new THREE.Group();mag.add(pencil);box(.012,.012,.15,M({color:0xe8c23a}),0,0,0,pencil);box(.013,.013,.02,M({color:0xd08080}),0,0,-.08,pencil);pencil.position.set(.12,.03,.02);pencil.rotation.set(0,.6,.2);var penT=0;
 box(.3,.5,.3,oMat,0,.55,.18,owner);
 // shelves behind the owner
 for(var sh=0;sh<3;sh++){box(.35,.03,3.2,MAT.wood,4.35,F+1.3+sh*.42,-7.6);for(var sk=0;sk<26;sk++){var sp=box(.3,.32,.03,M({color:new THREE.Color().setHSL(Math.random(),.25,.12+Math.random()*.2)}),4.33,F+1.48+sh*.42,-6.1-sk*.115);sp.rotation.x=(Math.random()-.5)*.15;}}
 // crates: soul (left), jazz bin (middle), R crate (back)
-var soulBench=box(.8,.45,5.8,MAT.wood,-3.95,F+.225,-9.9);
-for(var sc=0;sc<8;sc++)crateBox(-3.95,F+.45,-7.3-sc*.74,Math.PI/2+(Math.random()-.5)*.1);
-for(var sc2=0;sc2<5;sc2++)crateBox(-3.95,F,-7.6-sc2*1.2,Math.PI/2+(Math.random()-.5)*.2,null,false);
+var soulBench=box(.8,.45,4.4,MAT.wood,-3.95,F+.225,-9.2);
+for(var sc=0;sc<6;sc++)crateBox(-3.95,F+.45,-7.3-sc*.74,Math.PI/2+(Math.random()-.5)*.1);
+for(var sc2=0;sc2<4;sc2++)crateBox(-3.95,F,-7.6-sc2*1.1,Math.PI/2+(Math.random()-.5)*.2,null,false);
 box(1.8,.75,2.8,MAT.wood,0,F+.375,-10);
 for(var jx=0;jx<2;jx++){box(.82,.32,2.7,MAT.crate,-.45+jx*.9,F+.91,-10);for(var jl=0;jl<36;jl++){var lp=box(.31,.31,.012,M({color:new THREE.Color().setHSL(Math.random(),.2+Math.random()*.3,.15+Math.random()*.3)}),-.45+jx*.9,F+1.02,-8.75-jl*.07);lp.rotation.x=-.18;}}
 var rStool=box(1.0,.5,.6,MAT.wood,-1.1,F+.25,-14.15);var rCrate=crateBox(-1.1,F+.5,-14.15,0);rCrate.scale.set(1.3,1.3,1.3);
 var rCard=new THREE.Mesh(new THREE.PlaneGeometry(.22,.28),M({map:tex(64,80,function(g,w,h){g.fillStyle='#e8dcc0';g.fillRect(0,0,w,h);g.fillStyle='#111';g.font='800 56px "Marker Felt",Helvetica';g.textAlign='center';g.fillText('R',w/2,62);})}));rCard.position.set(-1.1,F+1.15,-14.0);scene.add(rCard);
-// floor stacks
-[[2.0,-12.4],[1.8,-13.2],[-2.6,-13.9],[3.9,-5.6],[-2.2,-6.2]].forEach(function(p,i){crateBox(p[0],F,p[1],Math.random(),null,i%2===0);if(i<3)crateBox(p[0],F+.36,p[1],Math.random());});
+// ---- signs in marker ----
+function sign(txt,x,y,z,ry,w,col){w=w||.5;var m=new THREE.Mesh(new THREE.PlaneGeometry(w,w*.36),new THREE.MeshLambertMaterial({map:tex(256,92,function(g,W,H){g.fillStyle=col||'#d8c8a2';g.fillRect(0,0,W,H);g.strokeStyle='rgba(60,40,20,.35)';g.lineWidth=3;g.strokeRect(4,4,W-8,H-8);g.fillStyle='#1a1008';g.font='700 54px "Marker Felt","Comic Sans MS",cursive';g.textAlign='center';g.textBaseline='middle';g.fillText(txt,W/2,H/2+3);})}));m.position.set(x,y,z);m.rotation.y=ry||0;scene.add(m);return m;}
+
+// ---- Hamburg crate on an old suitcase by the window ----
+box(.62,.42,.4,M({color:0x6a3a22}),-2.2,F+.21,-6.2);box(.64,.03,.42,M({color:0x3a2010}),-2.2,F+.3,-6.2);crateBox(-2.2,F+.42,-6.2,.15);sign('HAMBURG',-2.2,F+1.0,-6.45,Math.PI,.42);
+// ---- rap: crate on milk crates, front right ----
+var milk=M({color:0x9a2a22});box(.5,.32,.45,milk,3.9,F+.16,-5.6);box(.5,.32,.45,M({color:0x1f4a8a}),3.88,F+.48,-5.62);crateBox(3.9,F+.64,-5.6,Math.PI/2);sign('RAP',3.55,F+1.25,-5.6,-Math.PI/2,.36);
+
+// ---- sofa corner, back left ----
+var velvet=M({color:0x5a2236});box(.85,.42,2.3,velvet,-4.0,F+.21,-13.25);box(.25,.8,2.3,velvet,-4.36,F+.6,-13.25);box(.85,.62,.2,velvet,-4.0,F+.31,-12.1);box(.85,.62,.2,velvet,-4.0,F+.31,-14.4);
+for(var cu=0;cu<2;cu++){var cus=box(.55,.14,.95,M({color:0x6e2a42}),-3.95,F+.49,-12.75-cu*1.0);cus.rotation.y=(Math.random()-.5)*.1;}
+var pil=box(.12,.35,.35,M({color:0xc89a3a}),-4.18,F+.68,-12.6);pil.rotation.x=.2;
+// standing lamp
+box(.04,1.55,.04,MAT.dark,-4.25,F+.78,-14.55);var shade=new THREE.Mesh(new THREE.CylinderGeometry(.14,.24,.26,14,1,true),new THREE.MeshBasicMaterial({color:0xe8a050,side:THREE.DoubleSide}));shade.position.set(-4.25,F+1.62,-14.55);scene.add(shade);
+// coffee table with a shoebox of unknowns, cups, a candle
+box(.7,.06,.8,MAT.wood,-3.0,F+.4,-13.0);[[-3.3,-13.35],[-2.7,-13.35],[-3.3,-12.65],[-2.7,-12.65]].forEach(function(p){box(.05,.38,.05,MAT.dark,p[0],F+.19,p[1]);});
+box(.36,.13,.24,M({color:0xb07a4a}),-3.0,F+.5,-12.85);var lid=box(.38,.025,.26,M({map:tex(128,90,function(g,w,h){g.fillStyle='#c08a56';g.fillRect(0,0,w,h);g.fillStyle='#2a1a0a';g.font='700 22px "Marker Felt","Comic Sans MS",cursive';g.textAlign='center';g.fillText('UNBEKANNT',w/2,52);})}),-3.05,F+.58,-13.13);lid.rotation.x=-.5;
+for(var sb=0;sb<7;sb++)box(.32,.1,.006,M({color:new THREE.Color().setHSL(Math.random(),.25,.3+Math.random()*.3)}),-3.0,F+.56,-12.78-sb*.02);
+var cup=new THREE.Mesh(new THREE.CylinderGeometry(.035,.03,.08,10),M({color:0xe8e0d0}));cup.position.set(-2.8,F+.47,-13.25);scene.add(cup);
+var cand=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.09,8),M({color:0xf0e6c8}));cand.position.set(-3.2,F+.475,-13.3);scene.add(cand);var flame=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),new THREE.MeshBasicMaterial({color:0xffc060}));flame.scale.y=1.8;flame.position.set(-3.2,F+.54,-13.3);scene.add(flame);
+
+// ---- blues bench under the mirror ----
+box(.8,.45,2.9,MAT.wood,3.95,F+.225,-11.35);for(var bc=0;bc<4;bc++)crateBox(3.95,F+.45,-10.3-bc*.7,Math.PI/2+(Math.random()-.5)*.1);sign('BLUES',3.52,F+.62,-11.35,-Math.PI/2,.4);
+// ---- funk table at the back ----
+box(.9,.4,1.4,MAT.wood,2.0,F+.2,-12.8);crateBox(2.0,F+.4,-12.45,0);crateBox(2.0,F+.4,-13.15,.05);sign('FUNK',2.0,F+.95,-12.08,0,.36);
+
+// ---- listening station: two decks, two headphones ----
+box(1.3,.9,.55,MAT.wood,.8,F+.45,-14.22);box(1.34,.04,.59,M({color:0x2a1a10}),.8,F+.92,-14.22);
+function miniDeck(x,withDisc){var g=new THREE.Group();g.position.set(x,F+.94,-14.2);scene.add(g);box(.5,.08,.4,M({color:0x5a3a22}),0,.04,0,g);var pl=new THREE.Group();pl.position.set(-.04,.09,0);g.add(pl);var pt=new THREE.Mesh(new THREE.CylinderGeometry(.16,.16,.02,28),M({color:0x2a2a2a}));pl.add(pt);var disc=new THREE.Mesh(new THREE.CylinderGeometry(.15,.15,.008,28),M({color:0x0c0c0c}));disc.position.y=.014;pl.add(disc);var lb=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.01,20),withDisc?new THREE.MeshBasicMaterial({color:0x111111}):M({color:0xc8a050}));lb.position.y=.02;pl.add(lb);var ar=new THREE.Group();ar.position.set(.19,.11,-.12);g.add(ar);box(.012,.012,.24,MAT.metal,0,0,.11,ar);var pil=new THREE.Mesh(new THREE.SphereGeometry(.01,6,4),new THREE.MeshBasicMaterial({color:0x551010}));pil.position.set(-.2,.085,.17);g.add(pil);return {pl:pl,disc:disc,lab:lb,arm:ar,pilot:pil};}
+var dkA=miniDeck(.5,true),dkB=miniDeck(1.1,false);var lPlat=dkA.pl,lArm=dkA.arm,lPilot=dkA.pilot,labelMat=dkA.lab.material,lDisc=dkA.disc;lDisc.visible=false;dkA.lab.visible=true;
+function phones(x){var g=new THREE.Group();g.position.set(x,F+1.2,-14.52);scene.add(g);var band=new THREE.Mesh(new THREE.TorusGeometry(.08,.012,6,16,Math.PI),M({color:0x1a1a1a}));g.add(band);[-.08,.08].forEach(function(cx){var c=new THREE.Mesh(new THREE.CylinderGeometry(.045,.045,.03,14),M({color:0x2a2a2a}));c.rotation.z=Math.PI/2;c.position.set(cx,-.01,0);g.add(c);});box(.02,.02,.06,MAT.metal,0,.1,-.03,g);}
+phones(.5);phones(1.1);sign('VORH\u00d6REN',.8,F+1.42,-14.58,0,.5);
+
+// ---- genre shelves on the walls ----
+var spineGeo=new THREE.BoxGeometry(1,1,1),SPN=[];
+function shelf(x0,z0,x1,z1,ys,nx,nz,label){var len=Math.hypot(x1-x0,z1-z0),ry=Math.atan2(nx,nz);ys.forEach(function(y){var b=box(len,.03,.26,MAT.wood,(x0+x1)/2+nx*.13,y,(z0+z1)/2+nz*.13);b.rotation.y=ry;var n=Math.floor(len/.028);for(var i=0;i<n;i++){if(Math.random()<.06)continue;var t=(i+.5)/n,h=.27+Math.random()*.04;SPN.push({x:x0+(x1-x0)*t+nx*.15,y:y+.015+h/2,z:z0+(z1-z0)*t+nz*.15,ry:ry,h:h,lean:(Math.random()<.08?(Math.random()-.5)*.5:(Math.random()-.5)*.05)});}});var top=ys[ys.length-1];sign(label,(x0+x1)/2+nx*.02,top+.4,(z0+z1)/2+nz*.02,ry,.42);}
+shelf(-4.5,-7.3,-4.5,-11.2,[F+1.1,F+1.5],1,0,'SOUL');
+shelf(-2.5,-14.6,-.15,-14.6,[F+1.48,F+1.86],0,1,'JAZZ');
+shelf(.2,-14.6,1.45,-14.6,[F+1.6,F+1.95],0,1,'FUNK');
+shelf(.6,-5.1,2.2,-5.1,[F+1.25,F+1.65],0,-1,'BLUES');
+
+// ---- records everywhere: piles on the floor, rows leaning on walls, stacks on the stairs ----
+var SLB=[];
+function pile(x,z,n,y0,sz){y0=(y0===undefined)?F:y0;sz=sz||.31;var a=Math.random()*Math.PI;for(var i=0;i<n;i++){a+=(Math.random()-.5)*.35;SLB.push({x:x+(Math.random()-.5)*.03,y:y0+.006+i*.0125,z:z+(Math.random()-.5)*.03,rx:0,ry:a,rz:0,s:sz,flat:true});}}
+function lean(x0,z0,x1,z1,n,nx,nz,y0){y0=(y0===undefined)?F:y0;var ry=Math.atan2(nx,nz);for(var i=0;i<n;i++){var t=(i+.5)/n;SLB.push({x:x0+(x1-x0)*t+nx*.08,y:y0+.155,z:z0+(z1-z0)*t+nz*.08,rx:-.22-Math.random()*.1,ry:ry,rz:(Math.random()-.5)*.04,s:.31,flat:false});}}
+var PILES=[[-2.1,-8.3,22],[-2.0,-11.0,15],[4.2,-9.55,26],[1.3,-6.6,16],[-.35,-14.3,18],[2.75,-14.3,24],[-4.2,-11.75,9],[-2.95,-14.35,20],[-.15,-12.4,12]];
+PILES.forEach(function(p){pile(p[0],p[1],p[2]);if(Math.random()<.6)pile(p[0]+(Math.random()-.5)*.08,p[1]+(Math.random()-.5)*.08,Math.floor(p[2]*.5),F+p[2]*.0125,.3);});
+lean(-4.5,-6.3,-4.5,-6.85,12,1,0);lean(.6,-5.1,2.15,-5.1,30,0,-1);lean(4.5,-12.95,4.5,-13.3,8,-1,0);lean(-2.4,-14.6,-1.7,-14.6,14,0,1);
+pile(1.75,-6.25,8,F+.95);pile(2.75,-6.5,11,F+.95);pile(-3.0,-12.6,5,F+.43,.3);
+for(var st=3;st<13;st+=3){var sy=-st*RISE,sz2=TOP-(st-.5)*RUN;pile(.67,sz2,4+Math.floor(Math.random()*6),sy,.19);if(st!==5)pile(-.67,sz2-.05,3+Math.floor(Math.random()*5),sy,.19);}
+// the cat's tower by the door
+box(.5,.32,.45,milk,-.55,F+.16,-7.3);box(.5,.32,.45,M({color:0x2a6a3a}),-.53,F+.48,-7.32);box(.5,.32,.45,M({color:0x1f4a8a}),-.56,F+.8,-7.29);pile(-.55,-7.3,20,F+.96);
+var slabMat=new THREE.MeshLambertMaterial({color:0xffffff});var slabs=new THREE.InstancedMesh(spineGeo,slabMat,SLB.length+SPN.length);var dmy=new THREE.Object3D(),slc=new THREE.Color();
+SLB.forEach(function(q,i){dmy.position.set(q.x,q.y,q.z);dmy.rotation.set(0,0,0);dmy.rotation.y=q.ry;if(q.flat){dmy.scale.set(q.s,.011,q.s);}else{dmy.rotateX(q.rx);dmy.scale.set(q.s,q.s,.011);}dmy.updateMatrix();slabs.setMatrixAt(i,dmy.matrix);slc.setHSL(Math.random(),.15+Math.random()*.35,.12+Math.random()*.42);slabs.setColorAt(i,slc);});
+SPN.forEach(function(q,j){var i=SLB.length+j;dmy.position.set(q.x,q.y,q.z);dmy.rotation.set(0,q.ry,0);dmy.rotateZ(q.lean);dmy.scale.set(.022,q.h,.27);dmy.updateMatrix();slabs.setMatrixAt(i,dmy.matrix);slc.setHSL(Math.random(),.2+Math.random()*.4,.1+Math.random()*.4);slabs.setColorAt(i,slc);});
+slabs.instanceMatrix.needsUpdate=true;if(slabs.instanceColor)slabs.instanceColor.needsUpdate=true;scene.add(slabs);
+
+// ---- the curiosity cabinet, front wall right of the stairs ----
+var cabG=new THREE.Group();cabG.position.set(1.75,F,-5.38);scene.add(cabG);
+(function(){var dw=M({color:0x3a2416}),glass=new THREE.MeshPhongMaterial({color:0x99aabb,transparent:true,opacity:.16,shininess:100,specular:0xffffff,depthWrite:false}),brass=new THREE.MeshPhongMaterial({color:0xb08a3a,shininess:60,specular:0x886622}),bone=M({color:0xe8dcc0}),velv=M({color:0x4a1020});
+ box(1.1,.05,.5,dw,0,.08,0,cabG);box(1.1,.06,.5,dw,0,1.86,0,cabG);box(1.1,1.8,.03,velv,0,.97,.22,cabG);box(.05,1.8,.5,dw,-.53,.97,0,cabG);box(.05,1.8,.5,dw,.53,.97,0,cabG);
+ box(1.06,.16,.48,dw,0,.08,0,cabG);
+ [.6,1.05,1.48].forEach(function(y){box(1.0,.025,.44,dw,0,y,0,cabG);});
+ var gl=box(1.02,1.7,.01,glass,0,.98,-.245,cabG);box(.03,1.7,.03,brass,0,.98,-.25,cabG);
+ // bottom shelf: a small skull and an old cassette
+ var sk=new THREE.Mesh(new THREE.SphereGeometry(.07,12,10),bone);sk.scale.set(1,.9,1.15);sk.position.set(-.28,.68,-.02);cabG.add(sk);box(.08,.04,.07,bone,-.28,.625,-.06,cabG);
+ box(.1,.065,.015,M({color:0x222222}),.05,.645,0,cabG);box(.06,.03,.016,M({color:0xd8c8a0}),.05,.65,0,cabG);
+ var jar=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.14,14),glass);jar.position.set(.3,.68,-.02);cabG.add(jar);var jb=new THREE.Mesh(new THREE.SphereGeometry(.025,8,6),M({color:0x5a8a3a}));jb.position.set(.3,.66,-.02);cabG.add(jb);
+ // middle shelf: an old ribbon microphone and a broken 78
+ box(.07,.11,.04,brass,-.25,1.14,0,cabG);box(.015,.05,.015,brass,-.25,1.08,0,cabG);box(.08,.012,.06,dw,-.25,1.07,0,cabG);
+ var d78=new THREE.Mesh(new THREE.CylinderGeometry(.11,.11,.006,24,1,false,0,Math.PI*1.55),M({color:0x111111}));d78.rotation.x=Math.PI/2;d78.position.set(.15,1.18,.15);cabG.add(d78);
+ // top shelf: a tiny brass trumpet, a crow feather, a pocket watch
+ var tr=new THREE.Mesh(new THREE.CylinderGeometry(.008,.04,.26,10,1,true),brass);tr.rotation.z=Math.PI/2;tr.position.set(-.22,1.54,0);cabG.add(tr);
+ var fe=box(.012,.005,.2,M({color:0x101018}),.12,1.505,-.02,cabG);fe.rotation.y=.6;
+ var wa=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.012,16),brass);wa.rotation.x=Math.PI/2;wa.position.set(.33,1.55,.0);cabG.add(wa);
+ var cb=new THREE.Mesh(new THREE.SphereGeometry(.02,8,6),new THREE.MeshBasicMaterial({color:0xffd9a0}));cb.position.set(0,1.8,.0);cabG.add(cb);
+})();
+var cabLight=plight(0xffd0a0,.35,1.4,1.75,F+1.7,-5.5);
+// ---- disco balls over the bottom step ----
+var discoMat=new THREE.MeshPhongMaterial({color:0xb8b8c0,specular:0xffffff,shininess:90,emissive:0x2a2a30,flatShading:true});var discoBalls=[];
+[[-.7,F+1.95,-5.85,.2],[.75,F+1.85,-6.35,.16]].forEach(function(d){box(.006,CEIL-d[1]-d[3],.006,MAT.dark,d[0],(CEIL+d[1]+d[3])/2,d[2]);var b=new THREE.Mesh(new THREE.IcosahedronGeometry(d[3],2),discoMat);b.position.set(d[0],d[1],d[2]);scene.add(b);discoBalls.push(b);});
+var discoLight=plight(0xffffff,.7,5,0,F+1.7,-6.2);
+var DN=coarse?140:240,dGeo=new THREE.BufferGeometry(),dPos=new Float32Array(DN*3),dCol=new Float32Array(DN*3),dDir=[];
+var dTints=[[1,1,1],[1,.55,.8],[.55,.85,1],[1,.85,.45]];
+for(var di=0;di<DN;di++){var u=Math.random()*2-1,th=Math.random()*Math.PI*2,rr=Math.sqrt(1-u*u);dDir.push([rr*Math.cos(th),u*.85,rr*Math.sin(th),di%2]);var tc=dTints[Math.floor(Math.random()*4)];dCol[di*3]=tc[0];dCol[di*3+1]=tc[1];dCol[di*3+2]=tc[2];}
+dGeo.setAttribute('position',new THREE.BufferAttribute(dPos,3));dGeo.setAttribute('color',new THREE.BufferAttribute(dCol,3));
+var dots=new THREE.Points(dGeo,new THREE.PointsMaterial({size:.07,vertexColors:true,transparent:true,opacity:.85,blending:THREE.AdditiveBlending,depthWrite:false,map:tex(32,32,function(g){var gr=g.createRadialGradient(16,16,0,16,16,16);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.4,'rgba(255,255,255,.6)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,32,32);})}));dots.frustumCulled=false;scene.add(dots);
+var BX0=-4.48,BX1=4.48,BZ0=-14.58,BZ1=-5.12,BY0=F+.01,BY1=CEIL-.01;
+function discoTick(){for(var i=0;i<DN;i++){var d=dDir[i],b=discoBalls[d[3]],c=Math.cos(b.rotation.y),s=Math.sin(b.rotation.y),dx=d[0]*c+d[2]*s,dz=-d[0]*s+d[2]*c,dy=d[1],ox=b.position.x,oy=b.position.y,oz=b.position.z,t=1e9;
+ if(dx>0)t=Math.min(t,(BX1-ox)/dx);else if(dx<0)t=Math.min(t,(BX0-ox)/dx);if(dz>0)t=Math.min(t,(BZ1-oz)/dz);else if(dz<0)t=Math.min(t,(BZ0-oz)/dz);if(dy>0)t=Math.min(t,(BY1-oy)/dy);else if(dy<0)t=Math.min(t,(BY0-oy)/dy);
+ var px=ox+dx*t,pz=oz+dz*t;if(pz>-5.13&&Math.abs(px)<.5&&oy+dy*t>F+.01&&oy+dy*t<F+2.1){t*=.999;}dPos[i*3]=ox+dx*t*.995;dPos[i*3+1]=oy+dy*t*.995;dPos[i*3+2]=oz+dz*t*.995;}dGeo.attributes.position.needsUpdate=true;dots.visible=P.z<-1.6;discoLight.color.setHSL((t0*.05)%1,.5,.6);}
+
+// ---- the big mirror on the right wall ----
+var MIR={x:4.44,z:-11.35,w:2.5,h:1.08,y:F+1.42};
+var mirFrame=box(.05,MIR.h+.12,MIR.w+.12,M({color:0x3a2412}),4.47,MIR.y,MIR.z);
+var mirRT=new THREE.WebGLRenderTarget(coarse?512:1024,coarse?256:512);var mirCam=new THREE.PerspectiveCamera(70,1,.05,40);var mirTM=new THREE.Matrix4();
+var mirMat=new THREE.ShaderMaterial({uniforms:{tex:{value:mirRT.texture},tm:{value:mirTM}},vertexShader:'uniform mat4 tm;varying vec4 vU;void main(){vU=tm*modelMatrix*vec4(position,1.0);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',fragmentShader:'uniform sampler2D tex;varying vec4 vU;void main(){vec3 c=texture2DProj(tex,vU).rgb;gl_FragColor=vec4(c*vec3(.86,.9,.92)+vec3(.015,.02,.025),1.0);}'});
+var mirMesh=new THREE.Mesh(new THREE.PlaneGeometry(MIR.w,MIR.h),mirMat);mirMesh.position.set(MIR.x,MIR.y,MIR.z);mirMesh.rotation.y=-Math.PI/2;scene.add(mirMesh);
+// you, only ever seen in the mirror
+var avatar=new THREE.Group();scene.add(avatar);avatar.visible=false;var coat=M({color:0x2a2630});var bod=new THREE.Mesh(new THREE.CylinderGeometry(.17,.21,.8,12),coat);bod.position.y=1.0;avatar.add(bod);var legs=new THREE.Mesh(new THREE.CylinderGeometry(.15,.13,.62,10),M({color:0x1a1a22}));legs.position.y=.31;avatar.add(legs);var ahead=new THREE.Mesh(new THREE.SphereGeometry(.11,12,10),M({color:0xd9b49a}));ahead.position.y=1.55;avatar.add(ahead);var hair=new THREE.Mesh(new THREE.SphereGeometry(.12,12,10,0,Math.PI*2,0,Math.PI*.6),M({color:0x2a1a14}));hair.position.y=1.57;hair.rotation.x=.25;avatar.add(hair);[-1,1].forEach(function(sd){var a=new THREE.Mesh(new THREE.CylinderGeometry(.05,.045,.62,8),coat);a.position.set(sd*.22,1.05,0);a.rotation.z=sd*.08;avatar.add(a);});
+var mirN=0,_v3=new THREE.Vector3();
+
+// ---- Screamin' Jay, the cat ----
+var catLiked=false;try{catLiked=localStorage.getItem('rs-cat')==='1';}catch(e){}
+var catTabby=tex(128,64,function(g,w,h){g.fillStyle='#d98a3a';g.fillRect(0,0,w,h);g.fillStyle='#a85a1e';for(var i=0;i<10;i++){g.beginPath();g.ellipse(i*13+4,h/2,3,h/2,0,0,Math.PI*2);g.fill();}});
+var cat=new THREE.Group();scene.add(cat);var catM=M({map:catTabby}),catW=M({color:0xf2e2c8});
+var cBody=new THREE.Mesh(new THREE.SphereGeometry(.17,16,12),catM);cBody.scale.set(1,.62,1.45);cBody.position.y=.1;cat.add(cBody);
+var cHead=new THREE.Group();cat.add(cHead);var ch=new THREE.Mesh(new THREE.SphereGeometry(.1,14,10),catM);cHead.add(ch);var muz=new THREE.Mesh(new THREE.SphereGeometry(.05,10,8),catW);muz.position.set(0,-.03,.07);cHead.add(muz);
+[-1,1].forEach(function(sd){var e=new THREE.Mesh(new THREE.ConeGeometry(.035,.07,4),catM);e.position.set(sd*.055,.09,0);e.rotation.z=-sd*.25;cHead.add(e);});
+var cEyes=[];[-1,1].forEach(function(sd){var e=new THREE.Mesh(new THREE.SphereGeometry(.014,8,6),new THREE.MeshBasicMaterial({color:0xd8e04a}));e.position.set(sd*.04,.015,.088);cHead.add(e);cEyes.push(e);});
+var cTail=new THREE.Mesh(new THREE.TorusGeometry(.16,.028,6,16,Math.PI*1.15),catM);cTail.rotation.x=Math.PI/2;cTail.position.y=.05;cat.add(cTail);
+var cLegs=[];[[-.08,.14],[.08,.14],[-.08,-.14],[.08,-.14]].forEach(function(p){var l=new THREE.Mesh(new THREE.CylinderGeometry(.027,.024,.14,8),catM);l.position.set(p[0],-.02,p[1]);cat.add(l);cLegs.push(l);});
+var CAT={st:'sleep',home:new THREE.Vector3(-.55,F+1.22,-7.3),a:0,t:0,pets:0,sitT:0,jump:0,jf:null};cat.position.copy(CAT.home);cat.rotation.y=.6;cat.scale.setScalar(1.4);
+var catLamp=plight(0xffc890,1.6,2.6,-.45,F+2.05,-7.1);box(.006,CEIL-(F+2.12),.006,MAT.dark,-.55,(CEIL+F+2.12)/2,-7.3);var catBulb=new THREE.Mesh(new THREE.SphereGeometry(.05,12,10),new THREE.MeshBasicMaterial({color:0xffe2a8}));catBulb.position.set(-.55,F+2.09,-7.3);scene.add(catBulb);var catSign=new THREE.Mesh(new THREE.PlaneGeometry(.42,.15),new THREE.MeshLambertMaterial({map:tex(256,92,function(g,W,H){g.fillStyle='#d8c8a2';g.fillRect(0,0,W,H);g.strokeStyle='rgba(60,40,20,.35)';g.lineWidth=3;g.strokeRect(4,4,W-8,H-8);g.fillStyle='#1a1008';g.textAlign='center';g.textBaseline='middle';g.font='700 34px "Marker Felt","Comic Sans MS",cursive';g.fillText('Screamin\u2019 Jay',W/2,H/2-14);g.font='italic 22px Georgia,serif';g.fillText('bitte nicht wecken',W/2,H/2+24);})}));catSign.position.set(-.55,F+.62,-7.3+.232);catSign.rotation.z=-.05;scene.add(catSign);
+function catPose(sleep){cLegs.forEach(function(l){l.visible=!sleep;});cEyes.forEach(function(e){e.visible=!sleep;});if(sleep){cBody.scale.set(1.05,.6,1.3);cBody.position.y=.09;cHead.position.set(.06,.1,.2);cHead.rotation.set(.5,.3,.2);cTail.visible=true;}else{cBody.scale.set(.85,.75,1.45);cBody.position.y=.16;cHead.position.set(0,.29,.24);cHead.rotation.set(0,0,0);cTail.visible=false;}}
+catPose(true);
 // turntable corner
 box(1.2,.7,.9,MAT.wood,3.8,F+.35,-13.9);var deck=new THREE.Group();deck.position.set(3.8,F+.7,-13.9);scene.add(deck);
 box(.6,.1,.45,M({color:0x5a3b22}),0,.05,0,deck);var platter=new THREE.Group();platter.position.set(-.06,.11,0);deck.add(platter);
 var disc=new THREE.Mesh(new THREE.CylinderGeometry(.17,.17,.01,32),MAT.vinyl);platter.add(disc);
-var labelMat=new THREE.MeshBasicMaterial({color:0x111111});var lab=new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,.012,24),labelMat);platter.add(lab);var labMark=box(.05,.013,.01,new THREE.MeshBasicMaterial({color:0xddddcc}),.02,0,0,platter);
+var houseLabMat=new THREE.MeshBasicMaterial({color:0x111111});var lab=new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,.012,24),houseLabMat);platter.add(lab);var labMark=box(.05,.013,.01,new THREE.MeshBasicMaterial({color:0xddddcc}),.02,0,0,platter);
 var arm=new THREE.Group();arm.position.set(.2,.14,-.16);deck.add(arm);box(.02,.02,.26,MAT.metal,0,0,.13,arm);arm.rotation.y=.25;
 var pilot=new THREE.Mesh(new THREE.SphereGeometry(.012,8,6),new THREE.MeshBasicMaterial({color:0xff2a2a}));pilot.position.set(.24,.1,.2);deck.add(pilot);
 box(.3,.4,.25,M({color:0x241812}),3.3,F+1.8,-14.45);box(.3,.4,.25,M({color:0x241812}),4.3,F+1.8,-14.45);
@@ -462,30 +694,60 @@ bulb(3.2,F+1.85,-7.6);bulb(0,F+1.9,-10);bulb(-1.1,F+1.75,-13.9);bulb(-3.2,F+2.0,
 var SL={counter:plight(0xffc27a,2.7,9,3.3,F+1.8,-7.6),bin:plight(0xffb466,2.5,9.5,0,F+1.85,-10),r:plight(0xffd08a,2.0,6,-1.1,F+1.7,-13.7),soul:plight(0xffa860,1.8,8,-3.2,F+1.95,-9.5),deck:plight(0xff4a4a,1.3,5,3.8,F+1.3,-13.6),win:plight(0x9a5aff,1.3,6,-2.6,CEIL-.5,-5.6)};
 
 // ---------- walking ----------
-var P={x:0,z:1.6,y:0,yaw:Math.PI,pitch:-.05,eye:1.62},rad=.25,doorOpen=false,doorAng=0,buzzN=0;
-var OBST=[[1.0,2.45,-1.45,-.35],[.85,1.4,-.1,.4],
- [-4.3,-3.45,-6.15,-5.35],[2.25,3.2,-9.25,-5.95],[3.2,4.5,-9.3,-5.9],[-4.4,-3.5,-12.85,-6.95],[-.95,.95,-11.45,-8.55],[-1.65,-.55,-14.5,-13.8],[3.15,4.45,-14.45,-13.4],[1.65,2.35,-13.6,-12.05],[-2.95,-2.25,-14.3,-13.5],[3.55,4.25,-5.95,-5.25],[-2.55,-1.85,-6.55,-5.85]];
+var P={x:0,z:7.6,y:0,yaw:Math.PI,pitch:-.05,eye:1.62,sit:false},rad=.25,doorOpen=false,doorAng=0,buzzN=0;
+var OBST=[
+ [1.0,2.45,4.55,5.65],[.85,1.4,5.9,6.4],          // crates on the Reeperbahn pavement
+ [-.85,-.35,2.35,2.85],                           // bins in the side alley
+ [-4.3,-3.45,-6.15,-5.35],                        // fridge
+ [2.25,3.2,-9.25,-5.95],[3.2,4.5,-9.3,-5.9],      // counter, owner
+ [-4.4,-3.5,-11.45,-6.95],                        // soul bench
+ [-.95,.95,-11.45,-8.55],                         // jazz bin
+ [-1.65,-.55,-14.5,-13.8],                        // R stool
+ [3.15,4.45,-14.45,-13.4],                        // house deck
+ [1.55,2.45,-13.55,-12.05],                       // funk table
+ [3.5,4.45,-12.85,-9.8],                          // blues bench
+ [.15,1.45,-14.5,-13.95],                         // listening station
+ [3.6,4.2,-5.95,-5.25],                           // rap milk crates
+ [-2.55,-1.85,-6.55,-5.85],                       // Hamburg crate
+ [-4.45,-3.55,-14.5,-12.0],                       // sofa
+ [-3.38,-2.62,-13.42,-12.58],                     // coffee table
+ [-.83,-.27,-7.55,-7.05],                         // the cat's tower
+ [1.15,2.35,-5.68,-5.0]                           // the curiosity cabinet
+];
+PILES.forEach(function(p){OBST.push([p[0]-.2,p[0]+.2,p[1]-.2,p[1]+.2]);});
 function zoneOk(x,z){
- if(z>-1.3)return x>-14&&x<14&&z<9.6;
- if(z>-5.25){if(Math.abs(x)>(z<-4.8?.28:.55))return false;if(!doorOpen&&z<-4.72)return false;return true;}
+ if(z>4.7)return x>-14&&x<14&&z<15.6;          // Reeperbahn
+ if(z>-1.25)return Math.abs(x)<.62;              // archway + side alley
+ if(z>-1.75)return doorOpen&&Math.abs(x)<.32;    // the door at the top of the stairs
+ if(z>-5.25)return Math.abs(x)<=(z<-4.8?.28:.55); // stairs, open doorway at the bottom
  if(z<-14.35||x<-4.25||x>4.25)return false;return true;
 }
 function free(x,z){if(!zoneOk(x,z))return false;for(var i=0;i<OBST.length;i++){var o=OBST[i];if(x>o[0]-rad&&x<o[1]+rad&&z>o[2]-rad&&z<o[3]+rad)return false;}return true;}
 function groundAt(x,z){if(z>TOP)return 0;if(z<=BOT)return F;var n=Math.min(STEP_N,Math.floor((TOP-z)/RUN)+1);return -n*RISE;}
 function inShop(){return P.z<-5.05;}
 function inWell(){return P.z<=TOP&&P.z>=-5.05;}
-function where(){if(inShop()){if(P.x>2&&P.z>-9.5)return'Saint Pauli · the counter';if(P.z<-12.6)return'Saint Pauli · back of the shop';return'Saint Pauli · the record shop';}if(inWell())return'Saint Pauli · down the steps';return'Reeperbahn · Saint Pauli';}
+function where(){if(inShop()){if(P.x>2&&P.z>-9.5)return'Saint Pauli · the counter';if(P.z<-12.6)return'Saint Pauli · back of the shop';return'Saint Pauli · the record shop';}if(inWell())return'Saint Pauli · down the steps';if(P.z<4.6)return'Saint Pauli · the side alley';return'Reeperbahn · Saint Pauli';}
 
 // ---------- interaction spots ----------
 var SPOTS=[
- {id:'sidewalk',x:1.6,z:-.8,r:1.9,label:'Look at the crates',fn:function(){card('Crates on the sidewalk','Reeperbahn, half across the pavement',['Stacked so people have to step around them. A cardboard sign says ALLES 2 € in black marker.','Sun-bleached sleeves, mostly warped. Nothing in here you\u2019d want. The good stuff is downstairs.']);}},
- {id:'buzzer',x:.4,z:-4.5,r:1.0,label:'Press the buzzer',when:function(){return !doorOpen;},fn:pressBuzzer},
- {id:'fridge',x:-3.4,z:-5.8,r:1.4,label:'Look at the fridge',fn:fridgeCard},
- {id:'soul',x:-3.1,z:-9.9,r:2.2,label:'Dig through the soul 45s',fn:function(){openCrate('soul');}},
- {id:'jazz',x:0,z:-10,r:2.4,label:'Dig through the jazz pressings',fn:function(){openCrate('jazz');}},
- {id:'r',x:-1.1,z:-13.4,r:1.3,label:'Dig through the R crate',fn:function(){openCrate('r');}},
- {id:'owner',x:2.0,z:-7.6,r:1.4,label:'The man at the counter',fn:ownerCard},
- {id:'deck',x:3.6,z:-13.0,r:1.4,label:'Look at the turntable',fn:deckCard}
+ {k:'sidewalk',x:1.6,z:5.2,r:1.9,label:'Look at the crates',fn:sidewalkCard},
+ {k:'door',x:.3,z:-.75,r:.95,label:'Press the buzzer',when:function(){return !doorOpen;},fn:pressBuzzer},
+ {k:'cat',x:.2,z:-6.95,r:1.1,label:'Pet Screamin\u2019 Jay',fn:petCat},
+ {k:'fridge',x:-3.4,z:-5.8,r:1.3,label:'Open the fridge',fn:fridgeCard},
+ {k:'hh',x:-1.75,z:-7.15,r:.9,label:'Dig in Hamburg, nachts',fn:function(){openCrate('hh');}},
+ {k:'soul',x:-3.1,z:-9.3,r:1.9,label:'Dig in the soul 45s',fn:function(){openCrate('soul');}},
+ {k:'sit',x:-2.4,z:-12.15,r:.7,label:'Sink into the sofa',when:function(){return !P.sit;},fn:sitDown},
+ {k:'unk',x:-2.35,z:-13.05,r:.65,label:'Open the shoebox (Unbekannt)',fn:function(){openCrate('unk');}},
+ {k:'stand',x:-3.95,z:-13.25,r:.6,label:'Get up',when:function(){return P.sit;},fn:standUp},
+ {k:'jazz',x:0,z:-10,r:2.3,label:'Dig in the jazz bin',fn:function(){openCrate('jazz');}},
+ {k:'r',x:-1.1,z:-13.25,r:1.1,label:'Dig in the R crate',fn:function(){openCrate('r');}},
+ {k:'listen',x:.8,z:-13.45,r:.95,label:'The listening station',fn:listenCard},
+ {k:'funk',x:2.0,z:-11.65,r:.95,label:'Dig in the funk',fn:function(){openCrate('funk');}},
+ {k:'blues',x:3.05,z:-11.2,r:1.2,label:'Dig in the blues',fn:function(){openCrate('blues');}},
+ {k:'deck',x:3.6,z:-13.0,r:1.2,label:'Look at the old turntable',fn:deckCard},
+ {k:'rap',x:2.95,z:-5.5,r:.85,label:'Dig in rap & breaks',fn:function(){openCrate('rap');}},
+ {k:'owner',x:2.0,z:-7.6,r:1.4,label:'Talk to the grumpy owner',fn:ownerCard},
+ {k:'curio',x:1.75,z:-6.15,r:.85,label:'Look in the curiosity cabinet',fn:curioCard}
 ];
 function nearest(){var best=null,bd=9;SPOTS.forEach(function(s){if(s.when&&!s.when())return;var d=Math.hypot(P.x-s.x,P.z-s.z);if(d<s.r&&d<bd){bd=d;best=s;}});return best;}
 
@@ -499,14 +761,55 @@ function card(h,k,ps,btns){var c=$('card');c.innerHTML='';var e=document.createE
  var row=document.createElement('div');row.className='row';(btns||[]).forEach(function(b){var x=document.createElement('button');x.type='button';x.className='tb'+(b.pri?' pri':'');x.textContent=b.t;x.onclick=b.fn;row.appendChild(x);});
  var cl=document.createElement('button');cl.type='button';cl.className='tb';cl.textContent='Close';cl.onclick=closeCard;row.appendChild(cl);c.appendChild(row);c.classList.remove('hide');cardOpen=true;exitLock();}
 function closeCard(){$('card').classList.add('hide');cardOpen=false;}
-var GRUNTS=['\u201cHm.\u201d A page turns.','\u201cSteht alles da.\u201d He doesn\u2019t look up.','A grunt that might mean hello. Might not.','\u201cMoin.\u201d Barely. His eyes stay on the page.','He turns a page, slowly, like you\u2019re not there.'];
+var GRUNTS=['\u201cHm.\u201d He doesn\u2019t look up.','\u201cMoin. Wenn\u2019s sein muss.\u201d The pencil keeps moving.','\u201cWas du nicht kaufst, fasst du nicht an.\u201d Eyes stay on the crossword.','\u201cJa. Nee. Vielleicht.\u201d He fills in a word and crosses it out again.','\u201cDie Katze? Screamin\u2019 Jay. Die steht nur f\u00fcr ein Lied auf.\u201d He doesn\u2019t say which one.','A grunt. That\u2019s all you get.','\u201cDie Kopfh\u00f6rer hinten gehen beide. Meistens.\u201d He still hasn\u2019t looked up.','\u201cIch hab zu. Seit 1987. Komm trotzdem rein.\u201d'];
+var CR_DE={soul:'die Soul-Bank links',blues:'die Bank unterm Spiegel',funk:'der Funk-Tisch hinten',jazz:'die Jazzkiste in der Mitte',hh:'die Kiste am Fenster',rap:'die Milchkisten am Tresen',unk:'der Schuhkarton am Sofa',r:'der R-Kasten unter der Birne'};
+var TIP_OPEN=['Without looking up, he mutters:','He licks the pencil, eyes on seven across:','From behind the newspaper, not looking up:','He grunts. Then, to the crossword:','He doesn\u2019t look up. He just says it:','Still filling in a word, he says:'];
+var TIP_REC=[
+ function(r,x){return '\u201c'+x.ini+'. '+x.yr+'. Frag nicht. '+x.cr+'.\u201d';},
+ function(r,x){return '\u201cWenn es drau\u00dfen regnet, such '+x.ini+'. '+x.Cr+' wei\u00df Bescheid.\u201d';},
+ function(r,x){return '\u201c'+x.Cr+'. Da liegt was von '+x.yr+'. Das hat mal jemand geweint. Jetzt du.\u201d';},
+ function(r,x){return '\u201cDer Titel f\u00e4ngt mit '+x.t1+' an. Mehr sag ich nicht. '+x.Cr+'.\u201d';},
+ function(r,x){return '\u201cWas mit '+x.t1+'. Auf '+x.lab+'. Nicht nachts h\u00f6ren. Oder gerade nachts.\u201d';},
+ function(r,x){return '\u201c'+x.yr+' war ein gutes Jahr f\u00fcr Kummer. '+x.Cr+', irgendwo bei '+x.ini+'.\u201d';},
+ function(r,x){return '\u201cDie Nadel wei\u00df, was sie will. Leg '+x.ini+' auf und halt den Mund.\u201d';}
+];
+var TIP_ZEN=['\u201cDie B-Seite wei\u00df mehr als die A-Seite.\u201d','\u201cH\u00f6r auf das Knistern zwischen den Liedern. Da steht die Wahrheit.\u201d','\u201cAlles, was gut ist, hat einen Kratzer.\u201d','\u201cTrompete erst nach Mitternacht. Vorher l\u00fcgt sie.\u201d','\u201cEin Lied, das keiner kennt, kennt dich.\u201d','\u201cDreh die Platte um. Immer. Auch im Leben.\u201d','\u201cWer zu schnell sucht, findet nur Hits.\u201d','\u201cDie Katze hat den besseren Geschmack. Frag die.\u201d','\u201cDer Bass ist die Wahrheit. Der Rest ist Gerede.\u201d','\u201cIm Schuhkarton sind die Toten. Die singen am sch\u00f6nsten.\u201d'];
+var TIP_CLOSE=['','',' Then nothing more.',' \u201cUnd jetzt lass mich.\u201d',' \u201cSechs senkrecht. Ruhe.\u201d',' He turns a page, done with you.'];
+var lastTip='';
+function ownerTip(){var out='',g=0;
+ do{var pick=function(a){return a[Math.floor(Math.random()*a.length)];};var line;
+  if(Math.random()<.65){var r=pick(RECS),yrm=String(r.m||'').match(/(19|20)\d\d/),ini=r.a.split(/\s+/).filter(function(w){return /^[A-Za-z]/.test(w)&&w.toLowerCase()!=='the'&&w!=='&';}).map(function(w){return w.charAt(0).toUpperCase()+'.';}).join(' '),cr=CR_DE[r.cr]||'Irgendwo hinten';
+   var x={ini:ini||'?',yr:yrm?yrm[0]:'Irgendwann',cr:cr.charAt(0).toUpperCase()+cr.slice(1),Cr:cr.charAt(0).toUpperCase()+cr.slice(1),t1:'\u201e'+(r.t.replace(/^[^A-Za-z]+/,'').charAt(0).toUpperCase())+'\u201c',lab:String(r.m||'').split(',')[0]||'einem alten Label'};
+   line=pick(TIP_REC)(r,x);}
+  else line=pick(TIP_ZEN);
+  out=pick(TIP_OPEN)+' '+line+pick(TIP_CLOSE);g++;}while(out===lastTip&&g<5);
+ lastTip=out;return out;}
 function ownerCard(){var hasJay=FOUND.indexOf('hawkins')>=0,paid=BOUGHT.indexOf('hawkins')>=0,b=[];
- b.push({t:'Say Moin',fn:function(){turnPage();caption(GRUNTS[Math.floor(Math.random()*GRUNTS.length)]);}});
+ b.push({t:'Ask for a tip',pri:!(hasJay&&!paid),fn:function(){turnPage();caption(ownerTip(),9000);}});
+ b.push({t:'Say Moin',fn:function(){turnPage();caption(GRUNTS[Math.floor(Math.random()*GRUNTS.length)],6000);}});
  if(hasJay&&!paid)b.unshift({t:'Pay twenty for Screamin\u2019 Jay',pri:true,fn:payJay});
- card('The man at the counter','Behind the counter, under a bare bulb',['Flat cap, grey cardigan, reading glasses on the end of his nose. From the door he\u2019s only a silhouette against the bulb.','He\u2019s reading a jazz magazine so old the pages have gone the colour of weak tea. Stacks of them lean on the counter around him.',paid?'You already paid him. He didn\u2019t look up then either.':'He doesn\u2019t look up. He never looks up.'],b);}
-function payJay(){BOUGHT.push('hawkins');save('rs-bought',BOUGHT);closeCard();turnPage();caption('You put a twenty on the counter. Without looking up, he slides it into the drawer. \u201cPasst.\u201d',6500);renderPlayer();setTimeout(function(){card('It\u2019s yours','Screamin\u2019 Jay Hawkins · Okeh, 1956',['Sleeve worn to grey at the edges, ink still sharp. Twenty euros. Nobody haggles here.'],[{t:'Drop the needle',pri:true,fn:function(){closeCard();playRec('hawkins');}}]);},900);}
-function fridgeCard(){card('The fridge','By the door, older than the records',['Rounded top, chrome handle, cream paint gone yellow. Its hum is half the sound in the room.','Inside: two bottles of brown lemonade, half a lemon and a roll of masking tape. The little bulb flickers.'],[{t:'Thump it',fn:function(){thump=2.2;caption('You thump the side. The hum stutters, rattles, and picks up again a little lower.');}}]);}
-function deckCard(){var r=BYID[NOW];card('The turntable','Back corner, on an old side table',['A heavy old deck on a wooden plinth, a little red pilot light, two dusty speakers on the wall above it.',r?('On the platter now: '+r.a+', \u201c'+r.t+'\u201d.'):'On the platter now: some scratched saxophone record with no label left on it, turning slow under the hiss.'],[{t:'Open the record player',pri:true,fn:function(){openPlayer();}}].concat(r?[{t:'Lift the needle',fn:function(){stopRec();closeCard();}}]:[]));}
+ card('The grumpy owner','Behind the counter, under a bare bulb',['Flat cap, grey cardigan, reading glasses on the end of his nose, a pencil in his hand and a crossword he\u2019s been losing to since 1987.','He doesn\u2019t look up. He never looks up. But ask him for a tip and something strange falls out of him, a new one every time.',paid?'You already paid him. He didn\u2019t look up then either.':'Grumpy, yes. But he knows every record down here.'],b);}
+function payJay(){BOUGHT.push('hawkins');save('rs-bought',BOUGHT);closeCard();turnPage();caption('You put a twenty on the counter. Without looking up, he slides it into the drawer. \u201cPasst.\u201d A pause. \u201cGute Wahl. Sag\u2019s keinem.\u201d',6500);renderPlayer();setTimeout(function(){card('It\u2019s yours','Screamin\u2019 Jay Hawkins · Okeh, 1956',['Sleeve worn to grey at the edges, ink still sharp. Twenty euros. Nobody haggles here.'],[{t:'Drop the needle',pri:true,fn:function(){closeCard();playRec('hawkins');}}]);},900);}
+var CURIOS=['A small skull with a gold tooth. The tag says \u201cBassist, 1971. Hat zu laut gespielt.\u201d','An old cassette, label in pencil: \u201cNICHT \u00dcBERSPIELEN.\u201d Nobody knows what\u2019s on it.','A jar with a green thing floating in it. The card just says \u201cFr\u00fcher war es gr\u00f6\u00dfer.\u201d','A ribbon microphone from a studio on the Grosse Freiheit. Rumour says a Beatle coughed into it.','A broken 78, half of it missing. The other half is apparently somewhere in Bremen.','A tiny brass trumpet, too small for any mouth. Price tag: \u201cunverk\u00e4uflich\u201d.','A crow feather in a matchbox. Written inside the lid: \u201cHat zugeh\u00f6rt.\u201d','A pocket watch stopped at 3:13. The card: \u201cDa hat das Lied aufgeh\u00f6rt.\u201d','A guitar pick bitten clean in half.','A ticket stub from the Star-Club, April 1962. Sticky with something old.','A glass eye that seems to follow you around the shop.','A dried rose pressed in a sleeve of Screamin\u2019 Jay. \u201cF\u00fcr Lumina\u201d is written very small on the back.'];
+function curioCard(){var a=CURIOS.slice().sort(function(){return Math.random()-.5;}).slice(0,3);
+ card('The curiosity cabinet','Right of the stairs, behind dusty glass',['A tall dark cabinet lined with red velvet, one little bulb glowing at the top. The glass has fingerprints on the outside and dust on the inside.'].concat(a),[{t:'Look closer',pri:true,fn:function(){caption(CURIOS[Math.floor(Math.random()*CURIOS.length)],6000);}},{t:'Tap the glass',fn:function(){closeCard();caption('You tap the glass. From the counter, without looking up: \u201cNicht anfassen. Die Sachen haben Gef\u00fchle.\u201d',6000);}}]);}
+function fridgeCard(){card('The fridge','By the door, older than the records',['Rounded top, chrome handle, cream paint gone yellow. It\u2019s unplugged these days, so it\u2019s silent and just about cold enough.','Inside: two bottles of brown lemonade, half a lemon and a roll of masking tape. The little bulb flickers.'],[{t:'Thump it',fn:function(){thump=2.2;caption('You thump the side. The bottles clink. From the counter, without looking up: \u201cDer l\u00e4uft seit Jahren nicht mehr. Lass ihn.\u201d');}}]);}
+function deckCard(){card('The old turntable','Back right corner',['A heavy old deck on a wooden plinth with two dusty speakers above it. The platter turns slowly, but the volume knob is taped down at zero.','It spins for the look of it. Down here it\u2019s quiet, just a faint crackle in the air. Records only play at the listening station.'],[{t:'Go to the listening station',pri:true,fn:function(){closeCard();listenCard();}}]);}
+function listenCard(){var r=BYID[NOW];card('The listening station','Two decks, two pairs of headphones',['Two decks on a low cabinet, each with a pair of big headphones on a hook. A handwritten card: \u201cVORH\u00d6REN. Bitte vorsichtig.\u201d',r?('On the left deck now: '+r.a+', \u201c'+r.t+'\u201d.'):'Nothing on the decks. Pick a record from any crate and tap Listen to bring it here.'],[{t:'Open the record player',pri:true,fn:function(){openPlayer();}}].concat(r?[{t:'Lift the needle',fn:function(){stopRec();closeCard();}}]:[]));}
+function sidewalkCard(){card('Crates on the pavement','Outside, under the awning',['Cardboard boxes of records on two old crates, a bit damp at the edges. Most of the good ones are downstairs.','A taped arrow points into the side alley: \u201cMEHR UNTEN \u2192\u201d'],[{t:'Okay',pri:true,fn:function(){closeCard();}}]);}
+function sitDown(){P.sit=true;P.x=-3.85;P.z=-13.25;P.eye=1.12;P.yaw=-Math.PI/2;P.pitch=-.12;caption('You sink into the sofa. The springs creak, then give up. The shoebox of unknowns is right there on the little table. Walk or tap Get up to stand again.',6000);}
+function standUp(){if(!P.sit)return;P.sit=false;P.x=-3.2;P.z=-12.2;P.eye=1.62;}
+var CATPATH=[[-1.3,-7.65],[-1.35,-12.5],[.25,-13.35]];
+function petCat(){unlock();CAT.pets++;if(CAT.st==='sleep'){var t=['You scratch her behind the ear. She doesn\u2019t open her eyes, but you can feel a purr start deep inside her.','She stretches one paw toward you without waking up, then goes right back to sleep.','Still asleep. Somebody told you she only gets up for one song.'];caption(t[Math.min(CAT.pets-1,2)],5000);if(CAT.pets===3)setTimeout(function(){caption('From the counter, without looking up: \u201cScreamin\u2019 Jay steht nur f\u00fcr ihren Namensvetter auf. Der R-Kasten hinten.\u201d',6500);},5200);}else caption('She leans into your hand and doesn\u2019t take her eyes off the decks.',4000);}
+function catSpell(){if(CAT.st!=='sleep')return;CAT.st='wake';CAT.t=0;catPose(false);caption('At the first scream, Screamin\u2019 Jay opens one eye. Then both. She jumps down off her tower and pads off toward the listening station.',6500);try{localStorage.setItem('rs-cat','1');}catch(e){}catLiked=true;}
+function catTick(dt){CAT.t+=dt;var tm=performance.now()/1000;
+ if(CAT.st==='sleep'){cBody.scale.y=.6+Math.sin(tm*1.6)*.025;return;}
+ if(CAT.st==='wake'){if(CAT.t>1.2){CAT.st='walk';CAT.path=[[CAT.home.x,CAT.home.z]].concat(CATPATH);CAT.seg=0;CAT.u=0;CAT.y0=CAT.home.y;}return;}
+ if(CAT.st==='walk'||CAT.st==='home'){var p=CAT.path,a=p[CAT.seg],b=p[CAT.seg+1],L=Math.hypot(b[0]-a[0],b[1]-a[1])||.01;CAT.u+=dt*.7/L;var u=Math.min(1,CAT.u);var x=a[0]+(b[0]-a[0])*u,z=a[1]+(b[1]-a[1])*u,y=F+.09;
+  var first=CAT.st==='walk'?CAT.seg===0:CAT.seg===p.length-2;if(first){var k=CAT.st==='walk'?u:1-u;y=CAT.home.y+(F+.09-CAT.home.y)*k+Math.sin(k*Math.PI)*.25;}
+  cat.position.set(x,y,z);cat.rotation.y=Math.atan2(b[0]-a[0],b[1]-a[1]);cLegs.forEach(function(l,i){l.rotation.x=Math.sin(tm*10+(i%2?Math.PI:0))*.5;});
+  if(u>=1){CAT.seg++;CAT.u=0;if(CAT.seg>=p.length-1){cLegs.forEach(function(l){l.rotation.x=0;});if(CAT.st==='walk'){CAT.st='sit';cat.rotation.y=Math.PI;}else{CAT.st='sleep';cat.position.copy(CAT.home);cat.rotation.y=.6;catPose(true);}}}return;}
+ if(CAT.st==='sit'){cHead.rotation.x=Math.sin(tm*5.5)*.12;cHead.rotation.z=Math.sin(tm*2.7)*.1;if(NOW!=='hawkins'){CAT.st='home';CAT.path=[[cat.position.x,cat.position.z]].concat(CATPATH.slice(0,-1).reverse()).concat([[CAT.home.x,CAT.home.z]]);CAT.seg=0;CAT.u=0;cHead.rotation.set(0,0,0);caption('The song ends. Screamin\u2019 Jay gives you a long look, then strolls back to her tower.',5000);}}}
 var thump=0;
 function turnPage(){pageAnim=1;}var pageAnim=0;
 function pressBuzzer(){unlock();buzzN++;
@@ -519,40 +822,50 @@ function openDoor(){if(doorOpen)return;doorOpen=true;crackle(.3);}
 
 // ---------- crate browser ----------
 var CR={key:null,list:[],i:0};
-function openCrate(key){unlock();CR.key=key;CR.list=RECS.filter(function(r){return r.cr===key;});CR.i=0;$('crN').textContent=CRATES[key].n;crateOpen=true;exitLock();closeCard();$('crate').classList.remove('hide');showRec();caption(CRATES[key].b,4200);}
+function openCrate(key){unlock();CR.built=null;CR.key=key;CR.list=RECS.filter(function(r){return r.cr===key;});CR.i=0;$('crN').textContent=CRATES[key].n;crateOpen=true;exitLock();closeCard();$('crate').classList.remove('hide');showRec();caption(CRATES[key].b,4200);}
 function showRec(){var r=CR.list[CR.i];markFound(r.id);var im=$('crImg');im.classList.add('flip');setTimeout(function(){im.classList.remove('flip');},180);im.src=sleeve(r).url;im.alt=r.a+', '+r.t+' (sleeve)';
  $('crT').textContent=r.t;$('crA').textContent=r.a;$('crM').textContent=r.m+' · '+(r.f==='45'?'7" single':'LP');$('crC').textContent=r.cond;
  var own=BOUGHT.indexOf(r.id)>=0;$('crP').textContent=own?'Yours':(r.p+' €');$('crP').className='rp'+(own?' own':'');
- $('crI').textContent=(CR.i+1)+' of '+CR.list.length;
+ $('crI').textContent=(CR.i+1)+' of '+CR.list.length;crStrip();
  var b=$('crBuy');if(r.id==='hawkins'&&!own){b.classList.remove('hide');b.textContent='Take it to the counter';b.onclick=function(){closeCrate();P.x=1.9;P.z=-7.6;P.yaw=-Math.PI/2;P.pitch=-.1;ownerCard();};}else b.classList.add('hide');
  if(r.id==='hawkins')caption('Hold up. Screamin\u2019 Jay Hawkins, the 1956 original. Price tag: twenty euros.',6000);
  renderPlayer();}
 function closeCrate(){$('crate').classList.add('hide');crateOpen=false;}
 $('crPrev').onclick=function(){CR.i=(CR.i-1+CR.list.length)%CR.list.length;showRec();};
 $('crNext').onclick=function(){CR.i=(CR.i+1)%CR.list.length;showRec();};
-$('crPlay').onclick=function(){playRec(CR.list[CR.i].id);caption('You hand it over to the turntable in the corner. Crackle, then\u2026',4200);};
+$('crPlay').onclick=function(){playRec(CR.list[CR.i].id);caption('You carry it over to the listening station, put it on the left deck and pull the headphones on. Crackle, then\u2026',4600);};
+function crStrip(){var box=$('crStrip');if(!box){box=document.createElement('div');box.id='crStrip';box.style.cssText='display:flex;gap:6px;overflow-x:auto;padding:8px 2px 4px;-webkit-overflow-scrolling:touch';var host=$('crImg').parentNode;host.parentNode.insertBefore(box,host.nextSibling);}
+ if(CR.built!==CR.key){CR.built=CR.key;box.innerHTML='';CR.list.forEach(function(r,j){var im=document.createElement('img');im.src=sleeve(r).url;im.alt=r.a+', '+r.t;im.style.cssText='width:46px;height:46px;flex:0 0 auto;border-radius:3px;cursor:pointer;opacity:.55;border:2px solid transparent';im.onclick=function(){CR.i=j;showRec();};box.appendChild(im);});}
+ [].forEach.call(box.children,function(im,j){var on=j===CR.i;im.style.opacity=on?1:.55;im.style.borderColor=on?'#e8c48a':'transparent';if(on&&im.scrollIntoView)im.scrollIntoView({block:'nearest',inline:'center'});});}
+
 $('crClose').onclick=closeCrate;
 
 // ---------- deck record ----------
-function setDeckRecord(r){labelMat.color.set(r?(r.l||r.c):'#111111');}
+function setDeckRecord(r){labelMat.color.set(r?(r.l||r.ink||r.c):'#111111');lDisc.visible=!!r;}
 
 // ---------- places / help ----------
 var PLACES=[
- ['Reeperbahn sidewalk','Neon, wet cobbles, crates',0,1.6,Math.PI,-.05,false],
- ['The door with no sign','The buzzer at the bottom of the steps',0,-4.1,0,-.05,false],
- ['The fridge','By the door, humming',-2.9,-5.9,Math.PI/2+.2,-.15,true],
- ['Soul 45s','Left wall',-2.7,-9.9,Math.PI/2,-.35,true],
+ ['Reeperbahn pavement','Neon, wet cobbles, crates',0,7.6,Math.PI,-.05,false],
+ ['The side alley','A blinking VINYL sign and the buzzer',0,.7,0,-.05,false],
+ ['Screamin\u2019 Jay','Asleep on a tower of records under her own bulb',.45,-6.1,.69,-.15,true],
+ ['The man with the crossword','The counter, front right',1.8,-7.6,-Math.PI/2,-.1,true],
+ ['Hamburg, nachts','The crate by the window',-1.75,-7.2,2.72,-.4,true],
+ ['Soul 45s','Left wall',-2.7,-9.3,Math.PI/2,-.35,true],
  ['Jazz pressings','The bin in the middle',0,-7.9,0,-.4,true],
+ ['Blues & rock\u2019n\u2019roll','Under the big mirror',2.8,-11.2,-Math.PI/2,-.3,true],
+ ['Funk','The low table at the back',2.0,-11.4,0,-.45,true],
  ['The R crate','Under the bulb at the back',-1.1,-12.9,0,-.35,true],
- ['The counter','The man who doesn\u2019t look up',1.8,-7.6,-Math.PI/2,-.1,true],
- ['The turntable','Back corner',3.1,-12.6,-.5,-.3,true]
+ ['The listening station','Two decks, two headphones',.8,-13.1,0,-.3,true],
+ ['The sofa','Back left, with the shoebox of unknowns',-2.4,-12.15,Math.PI/2+.35,-.25,true],
+ ['Rap & breaks','Milk crates by the counter',2.85,-5.55,-Math.PI/2,-.4,true],
+ ['The old turntable','Back right corner',3.1,-12.6,-.5,-.3,true]
 ];
-function buildPlaces(){var p=$('places');p.innerHTML='';PLACES.forEach(function(a){var b=document.createElement('button');b.type='button';b.className='pl';b.innerHTML='<span></span><small></small>';b.firstChild.textContent=a[0];b.lastChild.textContent=a[1];b.onclick=function(){if(a[6]&&!doorOpen){doorOpen=true;buzzN=3;}P.x=a[2];P.z=a[3];P.yaw=a[4];P.pitch=a[5];P.y=groundAt(P.x,P.z);p.classList.add('hide');closeCard();closeCrate();};p.appendChild(b);});}
+function buildPlaces(){var p=$('places');p.innerHTML='';PLACES.forEach(function(a){var b=document.createElement('button');b.type='button';b.className='pl';b.innerHTML='<span></span><small></small>';b.firstChild.textContent=a[0];b.lastChild.textContent=a[1];if(a[6]&&!doorOpen)b.classList.add('locked');b.onclick=function(){if(a[6]&&!doorOpen){p.classList.add('hide');caption('Not so fast. You have to come in from the Kiez: down the side alley, under the blinking VINYL sign, and buzz.',6500);return;}P.sit=false;P.eye=1.62;P.x=a[2];P.z=a[3];P.yaw=a[4];P.pitch=a[5];P.y=groundAt(P.x,P.z);p.classList.add('hide');closeCard();closeCrate();};p.appendChild(b);});}
 buildPlaces();
 var HELP=coarse?['Drag the left half of the screen to walk.','Drag the right half to look around.','Tap the white button at the bottom to press, dig or talk.','Record player lists everything you\u2019ve found.']:['W A S D or the arrow keys to walk. Hold Shift to go faster.','Click the scene, then move the mouse to look. Esc frees the mouse.','E or Enter does the white button: press, dig, talk.','In a crate, the left and right arrow keys flip records.','P opens the record player.'];
 $('ctl').innerHTML='';HELP.forEach(function(t){var li=document.createElement('li');li.textContent=t;$('ctl').appendChild(li);});
 $('help').innerHTML='<p><b>How it works</b></p>';HELP.concat(['Press the buzzer more than once. It barely works.']).forEach(function(t){var p=document.createElement('p');p.textContent=t;$('help').appendChild(p);});
-function toggle(id){['places','help'].forEach(function(x){if(x!==id)$(x).classList.add('hide');});$(id).classList.toggle('hide');exitLock();}
+function toggle(id){if(id==='places')buildPlaces();['places','help'].forEach(function(x){if(x!==id)$(x).classList.add('hide');});$(id).classList.toggle('hide');exitLock();}
 $('bPlaces').onclick=function(){toggle('places');};$('bHelp').onclick=function(){toggle('help');};$('bPlayer').onclick=openPlayer;
 function closeAll(){['places','help'].forEach(function(x){$(x).classList.add('hide');});closeCard();closeCrate();exitLock();}
 
@@ -594,6 +907,7 @@ var clock=new THREE.Clock(),t0=0,lastSpot=null,enteredShop=false,lastZone='';
 function frame(){requestAnimationFrame(frame);var dt=Math.min(clock.getDelta(),.05);t0+=dt;
  if(started&&!cardOpen&&!crateOpen&&$('player').classList.contains('hide')){
   var f=0,s=0;if(keys.w||keys.arrowup)f+=1;if(keys.s||keys.arrowdown)f-=1;if(keys.a||keys.arrowleft)s-=1;if(keys.d||keys.arrowright)s+=1;f-=joyV.y;s+=joyV.x;
+  if(P.sit&&(Math.abs(f)>.1||Math.abs(s)>.1))standUp();if(P.sit){f=0;s=0;}
   var l=Math.hypot(f,s);if(l>1){f/=l;s/=l;}var sp=(keys.shift?3.2:1.8)*dt;
   var dx=(-Math.sin(P.yaw)*f+Math.cos(P.yaw)*s)*sp,dz=(-Math.cos(P.yaw)*f-Math.sin(P.yaw)*s)*sp;
   if(free(P.x+dx,P.z))P.x+=dx;if(free(P.x,P.z+dz))P.z+=dz;
@@ -602,7 +916,8 @@ function frame(){requestAnimationFrame(frame);var dt=Math.min(clock.getDelta(),.
  camera.position.set(P.x,P.y+P.eye,P.z);camera.rotation.order='YXZ';camera.rotation.y=P.yaw;camera.rotation.x=P.pitch;
  // door
  doorAng+=((doorOpen?-1.6:0)-doorAng)*Math.min(1,dt*3);doorPivot.rotation.y=-doorAng;
- doorLight.intensity=doorOpen?1.5:(flick>0?(Math.random()<.5?1.8:.1):.9);if(flick>0)flick-=dt;
+ lampDead-=dt;if(lampDead<=0&&Math.random()<dt*.35)lampDead=.15+Math.random()*1.4;var lOn=lampDead>0?(Math.random()<.08?.6:.03):(Math.random()<.04?.2:.85);if(flick>0){lOn=Math.random()<.5?1.4:.05;flick-=dt;}doorLight.intensity=lOn;doorBulb.material.color.setHex(lOn>.3?0xffc070:0x3a2a1a);
+ vinylT+=dt;var vOn=(vinylT%2.6)<1.9||(vinylT%2.6>2.2&&vinylT%2.6<2.35);vinylSign.material.opacity=vOn?1:.08;vinylSign.material.map=Math.random()<.02?vinylTexB:vinylTexA;vinylLight.intensity=vOn?1.6:.15;
  L.well.intensity=1.8+(Math.random()<.03?-1.4:0);
  // neon flicker
  NEON[3].material.opacity=Math.random()<.04?.3:1;
@@ -611,29 +926,43 @@ function frame(){requestAnimationFrame(frame);var dt=Math.min(clock.getDelta(),.
  // owner: breathes, turns a page sometimes, never looks up
  torso.scale.y=1+Math.sin(t0*1.4)*.012;head.rotation.x=.55+Math.sin(t0*.3)*.02;
  if(pageAnim>0){pageAnim-=dt*.9;page.rotation.y=Math.PI*(1-Math.max(0,pageAnim));if(pageAnim<=0)page.rotation.y=0;}
- else if(Math.random()<dt/14)pageAnim=1;
+ else if(Math.random()<dt/45)pageAnim=1;
+ // he's writing in his crossword: the pencil moves, he tilts his head when he's stuck
+ penT-=dt;if(penT<-3)penT=1.5+Math.random()*3;var writing=penT>0;pencil.position.x=.12+(writing?Math.sin(t0*9)*.025:0);pencil.position.y=.03+(writing?Math.cos(t0*13)*.01:.05);pencil.position.z=writing?.02:.08;head.rotation.z=writing?0:Math.sin(t0*.7)*.08;
+ // disco balls and their light dots
+ discoBalls.forEach(function(b,i){b.rotation.y+=dt*(i?.45:-.35);});discoTick(dt);
+ // the cat
+ catTick(dt);
+
  // smoke
  smoke.forEach(function(o){o.t+=dt*.18;if(o.t>1)o.t-=1;o.m.position.set(2.5+Math.sin(o.t*6+t0)*.04,F+1.08+o.t*.9,-7.25+Math.cos(o.t*5)*.03);o.m.scale.setScalar(1+o.t*3);o.m.material.opacity=.2*(1-o.t);});
  // deck
- var spinning=!!NOW||true;platter.rotation.y-=dt*(NOW?4.7:3.5);arm.rotation.y=NOW?.55:.42;pilot.material.color.setHex(NOW?0xff2a2a:0xaa2020);
+ platter.rotation.y-=dt*3.5;arm.rotation.y=.42;lPlat.rotation.y-=NOW?dt*4.7:0;lArm.rotation.y=NOW?.5:.05;lPilot.material.color.setHex(NOW?0xff2a2a:0x551010);
  // fridge shiver
  fridge.position.x=-3.85+(Math.random()-.5)*.002*(thump>0?6:1);if(thump>0)thump-=dt;
  // sound mix
  if(AC&&snd.on){var shop=inShop(),dFr=Math.hypot(P.x+3.85,P.z+5.75),dDk=Math.hypot(P.x-3.8,P.z+13.9);
-  gHum.gain.value=shop?Math.max(.15,1.6-dFr*.15)*(thump>1?.2:1):(inWell()?.1:0);
-  gStreet.gain.value=shop?.03:(inWell()?Math.max(.08,(P.z+5)/3.5*.5):.55);
-  gHouse.gain.value=shop?Math.max(.25,1.4-dDk*.1):(inWell()&&doorOpen?.08:0);
+  gHum.gain.value=0;
+  gStreet.gain.value=shop?0:(inWell()?Math.max(.08,(P.z+5)/3.5*.4):(P.z<4.5?.4:.55));
+  gHouse.gain.value=(shop&&!NOW)?.06:0;
   if(shop&&!houseOn&&!NOW)house(true);}
  // prompts & zone
  if(started){var n=nearest(),pr=$('prompt');if(n&&!cardOpen&&!crateOpen){pr.innerHTML=(coarse?'':'<kbd>E</kbd>');pr.appendChild(document.createTextNode(n.label));pr.classList.remove('hide');}else pr.classList.add('hide');
   var z=where();if(z!==lastZone){$('where').textContent=z;lastZone=z;}
-  if(inShop()&&!enteredShop){enteredShop=true;caption('Crates up to the ceiling. Old cardboard and stale tobacco. A fridge hums like it\u2019s been running since 1962, and in the back corner a scratched sax record turns under the hiss.',8000);}
-  if(inWell()&&!doorOpen&&P.z<-3.6&&lastSpot!=='door'){lastSpot='door';caption('A plain door. No sign, no name. Just a buzzer that looks like it gave up years ago.');}
+  if(inShop()&&!enteredShop){enteredShop=true;caption('Two disco balls turning over the bottom step, throwing light all over the walls. Records everywhere: on shelves, in crates, in towers on the floor. It\u2019s quiet down here, just a faint crackle in the air. Right in front of you, on the tallest stack under a bare bulb, a fat ginger cat is asleep like she owns the place.',9000);}
+  if(!doorOpen&&P.z<2.2&&P.z>-1.3&&lastSpot!=='door'){lastSpot='door';caption('A side alley. At the end, a pink VINYL sign blinks over a plain door, a lamp next to it half dead. Just a buzzer that looks like it gave up years ago.',6500);}
+  if(inWell()&&lastSpot!=='well'&&P.z<-2.5){lastSpot='well';caption('Steps going down. Light dots swimming over the walls below.',3500);}
  }
+if(inShop()&&P.z<-7.5&&P.x>-1.5&&(mirN++%2===0)){
+  var cp=camera.position;mirCam.position.set(2*MIR.x-cp.x,cp.y,cp.z);camera.getWorldDirection(_v3);var tx=cp.x+_v3.x,ty=cp.y+_v3.y,tz=cp.z+_v3.z;mirCam.up.set(0,1,0);mirCam.lookAt(2*MIR.x-tx,ty,tz);mirCam.projectionMatrix.copy(camera.projectionMatrix);mirCam.updateMatrixWorld();
+  mirTM.set(.5,0,0,.5,0,.5,0,.5,0,0,.5,.5,0,0,0,1);mirTM.multiply(mirCam.projectionMatrix);mirTM.multiply(mirCam.matrixWorldInverse);
+  avatar.position.set(P.x,cp.y-P.eye*(P.sit?1.38:1),P.z);avatar.rotation.y=P.yaw+Math.PI;avatar.visible=true;mirMesh.visible=false;mirFrame.visible=false;if(rWall)rWall.visible=false;
+  renderer.setRenderTarget(mirRT);renderer.render(scene,mirCam);renderer.setRenderTarget(null);
+  avatar.visible=false;mirMesh.visible=true;mirFrame.visible=true;if(rWall)rWall.visible=true;}
  renderer.render(scene,camera);
 }
 frame();
-window.__shop={scene:scene,camera:camera,P:P,open:openDoor,state:function(){return{x:P.x,z:P.z,y:P.y,door:doorOpen,now:NOW,playing:PLAYING,found:FOUND.length,tryIdx:tryIdx,cur:(yt&&yt.getCurrentTime)?yt.getCurrentTime():null,vid:(yt&&yt.getVideoData)?(yt.getVideoData()||{}).video_id:null,ytState:(yt&&yt.getPlayerState)?yt.getPlayerState():null};},play:playRec,crate:openCrate,spots:SPOTS,nearest:nearest};
+window.__shop={scene:scene,camera:camera,P:P,open:openDoor,state:function(){return{x:P.x,z:P.z,y:P.y,door:doorOpen,now:NOW,playing:PLAYING,found:FOUND.length,tryIdx:tryIdx,cur:(yt&&yt.getCurrentTime)?yt.getCurrentTime():null,vid:(yt&&yt.getVideoData)?(yt.getVideoData()||{}).video_id:null,ytState:(yt&&yt.getPlayerState)?yt.getPlayerState():null,snd:snd.on,master:master?master.gain.value:null,hum:gHum?gHum.gain.value:null,house:gHouse?gHouse.gain.value:null,houseOn:houseOn,street:gStreet?gStreet.gain.value:null,cat:CAT.st,inShop:inShop()};},tip:ownerTip,unk:function(){return RECS.filter(function(r){return r.cr==='unk';}).map(function(r){return r.id;});},recs:function(){return RECS.map(function(r){return r.id;});},play:playRec,crate:openCrate,spots:SPOTS,nearest:nearest};
 })();
 </script>
 </body>
