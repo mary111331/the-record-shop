@@ -110,7 +110,7 @@ ul.ctl{padding-left:18px;margin:10px 0;color:#ddd5ca;font-size:14px}ul.ctl li{ma
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <script>
-(function(){var PAGE_V='3.1';window.SHOP_VERSION=PAGE_V;
+(function(){var PAGE_V='3.2';window.SHOP_VERSION=PAGE_V;
 try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
  if(j&&j.v&&j.v!==PAGE_V){var u=location.pathname+'?v='+encodeURIComponent(j.v);if(location.search.indexOf('v='+j.v)<0){location.replace(u);}}
 }).catch(function(){});}catch(e){}
@@ -119,7 +119,7 @@ try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){retu
 <style>#verBadge{position:fixed;right:8px;bottom:6px;z-index:99999;font:11px/1.2 monospace;color:rgba(255,190,220,.75);background:rgba(0,0,0,.35);padding:2px 6px;border-radius:6px;pointer-events:none}</style>
 </head>
 <body>
-<div id="verBadge">Version 3.1 · ohne Musik</div>
+<div id="verBadge">Version 3.2 · ohne Musik</div>
 <canvas id="c" tabindex="0"></canvas>
 <div id="hud" class="hide">
   <div id="where"></div>
@@ -297,6 +297,7 @@ var RECS=[
  {"id": "wattsexpress", "cr": "unk", "f": "45", "t": "Express Yourself", "a": "Charles Wright & the Watts 103rd Street Rhythm Band", "m": "Warner Bros., 1970", "p": 12, "cond": "A long name on a short label. Groove for days.", "c": "#e8c878", "l": "#2a2a2a", "ids": ["OFyZ4HiLbl0", "jW4VZ5J0fNQ"]},
  {"id": "rodriguez", "cr": "unk", "f": "LP", "t": "Sugar Man", "a": "Rodriguez", "m": "from Cold Fact · Sussex, 1970", "p": 18, "cond": "Sold almost nothing in America. Cover a little foxed.", "c": "#3a2a2a", "ink": "#e8c48a", "st": 1, "ids": ["E90_aL870ao", "eu5W-po-cLI"]},
  {"id": "alligator", "cr": "r", "f": "45", "t": "Alligator Wine", "a": "Screamin' Jay Hawkins", "m": "Okeh, 1958", "p": 15, "cond": "The other Screamin' Jay single. The cat doesn't care for this one.", "c": "#2a1a12", "l": "#7a1a1a", "ids": ["GL4exhfaun8", "MI3YzuzwK44", "l_mMPB4Bgig"]},
+ {"id": "lovepotion", "cr": "r", "f": "45", "t": "Love Potion No. 9", "a": "The Clovers", "m": "United Artists, 1959", "p": 14, "cond": "Another spell, filed next to Screamin' Jay on purpose. Leiber and Stoller wrote it; Madame Ruth on Thirty-Fourth and Vine mixed it.", "c": "#e4d4b0", "l": "#5a2a7a", "ids": ["XkXuvl7HygQ", "h8KDknyNzsw", "Nt7htnE1s4o", "Dg1cn-UIAhQ"]},
  {"id": "paloma", "cr": "hh", "f": "45", "t": "La Paloma", "a": "Hans Albers", "m": "from the film Große Freiheit Nr. 7, 1944", "p": 9, "cond": "Named after the street round the corner. Shellac-era and still swaying.", "c": "#e4d6b6", "l": "#14325a", "ids": ["1SMuHDUXANA", "CN5T1aVK1V4", "izVR4VsEIp4"]},
  {"id": "ohjonny", "cr": "hh", "f": "LP", "t": "Oh Jonny", "a": "Jan Delay", "m": "Vertigo, 2009", "p": 14, "cond": "Hamburg funk with a hat on. Sleeve smells faintly of the Schanze.", "c": "#1a1a1a", "ink": "#e8c25a", "st": 1, "ids": ["kW7u7ptj-j4", "D3DNXhIreUc"]},
  {"id": "ahnma", "cr": "hh", "f": "LP", "t": "Ahnma", "a": "Beginner feat. Gzuz & Gentleman", "m": "Vertigo, 2016", "p": 16, "cond": "Hamburg rap, old guard and new. Bass you feel in the crate.", "c": "#e8e2d6", "ink": "#1a1a1a", "st": 0, "ids": ["C6_Uk_2rkQg", "KEzaoC4duD8"]},
