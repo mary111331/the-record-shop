@@ -110,7 +110,7 @@ ul.ctl{padding-left:18px;margin:10px 0;color:#ddd5ca;font-size:14px}ul.ctl li{ma
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <script>
-(function(){var PAGE_V='2';window.SHOP_VERSION=PAGE_V;
+(function(){var PAGE_V='3';window.SHOP_VERSION=PAGE_V;
 try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
  if(j&&j.v&&j.v!==PAGE_V){var u=location.pathname+'?v='+encodeURIComponent(j.v);if(location.search.indexOf('v='+j.v)<0){location.replace(u);}}
 }).catch(function(){});}catch(e){}
@@ -119,7 +119,7 @@ try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){retu
 <style>#verBadge{position:fixed;right:8px;bottom:6px;z-index:99999;font:11px/1.2 monospace;color:rgba(255,190,220,.75);background:rgba(0,0,0,.35);padding:2px 6px;border-radius:6px;pointer-events:none}</style>
 </head>
 <body>
-<div id="verBadge">Version 2 · ohne Musik</div>
+<div id="verBadge">Version 3 · ohne Musik</div>
 <canvas id="c" tabindex="0"></canvas>
 <div id="hud" class="hide">
   <div id="where"></div>
@@ -187,7 +187,7 @@ var CRATES={
  funk:{n:'Funk',b:'A low table at the back. Fat basslines in thin sleeves.',w:'the low table at the back'},
  jazz:{n:'Jazz pressings',b:'The bin in the middle. Heavy old LPs, corners soft, spines faded.',w:'the bin in the middle'},
  hh:{n:'Hamburg, nachts',b:'A small crate by the window, an old ferry ticket taped to it. Songs from up the street.',w:'the crate by the window'},
- rap:{n:'Rap & breaks',b:'Front right, on a stack of milk crates by the counter. US classics and Hamburg rap from a few streets away.',w:'the milk crates by the counter'},
+ rap:{n:'Rap & breaks',b:'At the end of the counter, on a stack of milk crates. US classics and Hamburg rap from a few streets away.',w:'the milk crates at the end of the counter'},
  unk:{n:'Unbekannt',b:'A shoebox on the coffee table by the sofa. No divider, just UNBEKANNT in pencil on the lid. Old, obscure, mostly forgotten.',w:'the shoebox by the sofa'},
  r:{n:'The R crate',b:'Back wall, under the single bulb. A divider card with a big R in marker. Rarities, he says, if he says anything.',w:'under the bulb at the back'}
 };
@@ -581,8 +581,8 @@ function sign(txt,x,y,z,ry,w,col){w=w||.5;var m=new THREE.Mesh(new THREE.PlaneGe
 
 // ---- Hamburg crate on an old suitcase by the window ----
 box(.62,.42,.4,M({color:0x6a3a22}),-2.2,F+.21,-6.2);box(.64,.03,.42,M({color:0x3a2010}),-2.2,F+.3,-6.2);crateBox(-2.2,F+.42,-6.2,.15);sign('HAMBURG',-2.2,F+1.0,-6.45,Math.PI,.42);
-// ---- rap: crate on milk crates, front right ----
-var milk=M({color:0x9a2a22});box(.5,.32,.45,milk,3.9,F+.16,-5.6);box(.5,.32,.45,M({color:0x1f4a8a}),3.88,F+.48,-5.62);crateBox(3.9,F+.64,-5.6,Math.PI/2);sign('RAP',3.55,F+1.25,-5.6,-Math.PI/2,.36);
+// ---- rap: crate on milk crates, at the open end of the counter ----
+var milk=M({color:0x9a2a22});box(.5,.32,.45,milk,2.72,F+.16,-9.65);box(.5,.32,.45,M({color:0x1f4a8a}),2.74,F+.48,-9.63);crateBox(2.72,F+.64,-9.65,0);sign('RAP',2.72,F+1.25,-9.92,Math.PI,.36);
 
 // ---- sofa corner, back left ----
 var velvet=M({color:0x5a2236});box(.85,.42,2.3,velvet,-4.0,F+.21,-13.25);box(.25,.8,2.3,velvet,-4.36,F+.6,-13.25);box(.85,.62,.2,velvet,-4.0,F+.31,-12.1);box(.85,.62,.2,velvet,-4.0,F+.31,-14.4);
@@ -719,7 +719,7 @@ var OBST=[
  [1.55,2.45,-13.55,-12.05],                       // funk table
  [3.5,4.45,-12.85,-9.8],                          // blues bench
  [.15,1.45,-14.5,-13.95],                         // listening station
- [3.6,4.2,-5.95,-5.25],                           // rap milk crates
+ [2.42,3.02,-9.9,-9.4],                           // rap milk crates
  [-2.55,-1.85,-6.55,-5.85],                       // Hamburg crate
  [-4.45,-3.55,-14.5,-12.0],                       // sofa
  [-3.38,-2.62,-13.42,-12.58],                     // coffee table
@@ -757,7 +757,7 @@ var SPOTS=[
  {k:'funk',x:2.0,z:-11.65,r:.95,label:'Dig in the funk',fn:function(){openCrate('funk');}},
  {k:'blues',x:3.05,z:-11.2,r:1.2,label:'Dig in the blues',fn:function(){openCrate('blues');}},
  {k:'deck',x:3.6,z:-13.0,r:1.2,label:'Look at the old turntable',fn:deckCard},
- {k:'rap',x:2.95,z:-5.5,r:.85,label:'Dig in rap & breaks',fn:function(){openCrate('rap');}},
+ {k:'rap',x:2.72,z:-10.4,r:.85,label:'Dig in rap & breaks',fn:function(){openCrate('rap');}},
  {k:'owner',x:2.0,z:-7.6,r:1.4,label:'Talk to the grumpy owner',fn:ownerCard},
  {k:'curio',x:1.75,z:-6.15,r:.85,label:'Look in the curiosity cabinet',fn:curioCard}
 ];
@@ -774,7 +774,7 @@ function card(h,k,ps,btns){var c=$('card');c.innerHTML='';var e=document.createE
  var cl=document.createElement('button');cl.type='button';cl.className='tb';cl.textContent='Close';cl.onclick=closeCard;row.appendChild(cl);c.appendChild(row);c.classList.remove('hide');cardOpen=true;exitLock();}
 function closeCard(){$('card').classList.add('hide');cardOpen=false;}
 var GRUNTS=['\u201cHm.\u201d He doesn\u2019t look up.','\u201cMoin. Wenn\u2019s sein muss.\u201d The pencil keeps moving.','\u201cWas du nicht kaufst, fasst du nicht an.\u201d Eyes stay on the crossword.','\u201cJa. Nee. Vielleicht.\u201d He fills in a word and crosses it out again.','\u201cDie Katze? Screamin\u2019 Jay. Die steht nur f\u00fcr ein Lied auf.\u201d He doesn\u2019t say which one.','A grunt. That\u2019s all you get.','\u201cDie Kopfh\u00f6rer hinten gehen beide. Meistens.\u201d He still hasn\u2019t looked up.','\u201cIch hab zu. Seit 1987. Komm trotzdem rein.\u201d'];
-var CR_DE={soul:'die Soul-Bank links',blues:'die Bank unterm Spiegel',funk:'der Funk-Tisch hinten',jazz:'die Jazzkiste in der Mitte',hh:'die Kiste am Fenster',rap:'die Milchkisten am Tresen',unk:'der Schuhkarton am Sofa',r:'der R-Kasten unter der Birne'};
+var CR_DE={soul:'die Soul-Bank links',blues:'die Bank unterm Spiegel',funk:'der Funk-Tisch hinten',jazz:'die Jazzkiste in der Mitte',hh:'die Kiste am Fenster',rap:'die Milchkisten am Ende vom Tresen',unk:'der Schuhkarton am Sofa',r:'der R-Kasten unter der Birne'};
 var TIP_OPEN=['Without looking up, he mutters:','He licks the pencil, eyes on seven across:','From behind the newspaper, not looking up:','He grunts. Then, to the crossword:','He doesn\u2019t look up. He just says it:','Still filling in a word, he says:'];
 var TIP_REC=[
  function(r,x){return '\u201c'+x.ini+'. '+x.yr+'. Frag nicht. '+x.cr+'.\u201d';},
@@ -869,7 +869,7 @@ var PLACES=[
  ['The R crate','Under the bulb at the back',-1.1,-12.9,0,-.35,true],
  ['The listening station','Two decks, two headphones',.8,-13.1,0,-.3,true],
  ['The sofa','Back left, with the shoebox of unknowns',-2.4,-12.15,Math.PI/2+.35,-.25,true],
- ['Rap & breaks','Milk crates by the counter',2.85,-5.55,-Math.PI/2,-.4,true],
+ ['Rap & breaks','Milk crates at the end of the counter',2.72,-10.45,Math.PI,-.4,true],
  ['The old turntable','Back right corner',3.1,-12.6,-.5,-.3,true]
 ];
 function buildPlaces(){var p=$('places');p.innerHTML='';PLACES.forEach(function(a){var b=document.createElement('button');b.type='button';b.className='pl';b.innerHTML='<span></span><small></small>';b.firstChild.textContent=a[0];b.lastChild.textContent=a[1];if(a[6]&&!doorOpen)b.classList.add('locked');b.onclick=function(){if(a[6]&&!doorOpen){p.classList.add('hide');caption('Not so fast. You have to come in from the Kiez: down the side alley, under the blinking VINYL sign, and buzz.',6500);return;}P.sit=false;P.eye=1.62;P.x=a[2];P.z=a[3];P.yaw=a[4];P.pitch=a[5];P.y=groundAt(P.x,P.z);p.classList.add('hide');closeCard();closeCrate();};p.appendChild(b);});}
