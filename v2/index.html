@@ -110,7 +110,7 @@ ul.ctl{padding-left:18px;margin:10px 0;color:#ddd5ca;font-size:14px}ul.ctl li{ma
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <script>
-(function(){var PAGE_V='3.5';window.SHOP_VERSION=PAGE_V;
+(function(){var PAGE_V='3.6';window.SHOP_VERSION=PAGE_V;
 try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
  if(j&&j.v&&j.v!==PAGE_V){var u=location.pathname+'?v='+encodeURIComponent(j.v);if(location.search.indexOf('v='+j.v)<0){location.replace(u);}}
 }).catch(function(){});}catch(e){}
@@ -119,7 +119,7 @@ try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){retu
 <style>#verBadge{position:fixed;right:8px;bottom:6px;z-index:99999;font:11px/1.2 monospace;color:rgba(255,190,220,.75);background:rgba(0,0,0,.35);padding:2px 6px;border-radius:6px;pointer-events:none}</style>
 </head>
 <body>
-<div id="verBadge">Version 3.5 · ohne Musik</div>
+<div id="verBadge">Version 3.6 · ohne Musik</div>
 <canvas id="c" tabindex="0"></canvas>
 <div id="hud" class="hide">
   <div id="where"></div>
@@ -206,6 +206,8 @@ var RECS=[
  {id:'benking',cr:'soul',f:'45',t:'Stand By Me',a:'Ben E. King',m:'Atco, 1961',p:12,cond:'Somebody played this one a lot. Somebody loved it.',c:'#e4d6b6',l:'#d4b13a',ids:["pKtLNYNWbBw", "hwZNL7QVJjE"]},
  {id:'brown',cr:'soul',f:'45',t:"It's a Man's Man's Man's World",a:'James Brown',m:'King, 1966',p:13,cond:'Split seam, heavy vinyl, loud.',c:'#cdb790',l:'#a0262a',ids:["lWTLbcRnlVY", "H77fRz1rybs"]},
  {id:'curtis',cr:'soul',f:'45',t:'Move On Up',a:'Curtis Mayfield',m:'Curtom, 1970',p:12,cond:'Sleeve stamped twice by some long-gone radio station.',c:'#ece2c9',l:'#e0702a',ids:["A9RMr9KuVZo", "zPEaydx_E8Y", "chcyTeyEM04"]},
+ {"id": "peacepiece", "cr": "jazz", "f": "LP", "t": "Peace Piece", "a": "Bill Evans", "m": "from Everybody Digs Bill Evans · Riverside, 1959", "p": 21, "cond": "Solo piano, recorded in December 1958. Two quiet chords and a lot of air between the notes. Waltz for Debby is further back in this bin.", "c": "#e7e2d4", "ink": "#2b3a4a", "st": 0, "ids": ["ffnnMC-yMR0", "nWN_Pt9SiH4", "-49G2-0GBSA", "libHdWPZYwE"]},
+ {"id": "petal", "cr": "jazz", "f": "LP", "t": "The Single Petal of a Rose", "a": "Duke Ellington", "m": "from The Queen’s Suite · rec. 1959, Pablo, 1976", "p": 22, "cond": "Duke alone at the piano, Jimmy Woode on bass. Written for the Queen and kept back for years. Ellington called it “so delicate, fragile, gentle, luminous.”", "c": "#5a1f2a", "ink": "#f3d9dc", "st": 1, "ids": ["qxNdgCGc7Bw", "XrH6K9GpWWo", "q6ZHvSO1eac", "T9Xy0nqf4y0"]},
  {id:'sowhat',cr:'jazz',f:'LP',t:'So What',a:'Miles Davis',m:'from Kind of Blue · Columbia, 1959',p:25,cond:'Spine faded to almost nothing. The blue on the cover went grey years ago.',c:'#2b3f5c',ink:'#f2ede2',st:0,ids:["ylXk1LBvIqU", "zqNTltOGh5c", "q72jAN2F5Cs"]},
  {id:'coltrane',cr:'jazz',f:'LP',t:'In a Sentimental Mood',a:'Duke Ellington & John Coltrane',m:'Impulse!, 1963',p:22,cond:'Orange-and-black spine still bright. Gatefold a bit loose.',c:'#1d1d1d',ink:'#f08a24',st:1,ids:["sCQfTNOC5aE", "nU9cNyEbUeA", "G0hpSntjABI"]},
  {id:'brubeck',cr:'jazz',f:'LP',t:'Take Five',a:'The Dave Brubeck Quartet',m:'from Time Out · Columbia, 1959',p:20,cond:'Ring wear, clean vinyl. Ballpoint note inside: "5/4!!"',c:'#e8e0cf',ink:'#c0392b',st:3,ids:["buVpqwraap0", "ryA6eHZNnXY", "vmDDOFXSgAs"]},
